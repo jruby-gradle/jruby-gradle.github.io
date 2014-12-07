@@ -1,0 +1,15 @@
+plugins {
+  id "org.asciidoctor.gradle.asciidoctor" version "1.5.1"
+}
+
+repositories {
+    jcenter()
+}
+
+
+asciidoctor {
+    outputDir '.'
+}
+
+
+// vim: ft=groovy
