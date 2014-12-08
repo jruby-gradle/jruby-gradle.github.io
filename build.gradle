@@ -8,6 +8,7 @@ repositories {
 
 
 asciidoctor {
+    sourceDir 'src/asciidoc'
     outputDir '.'
     attributes 'toc': 'right',
                'source-highlighter': 'coderay',
