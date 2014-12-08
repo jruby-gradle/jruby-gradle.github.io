@@ -9,6 +9,9 @@ repositories {
 
 asciidoctor {
     outputDir '.'
+    attributes 'toc': 'right',
+               'source-highlighter': 'coderay',
+               'toc-title': 'Table of Contents'
 }
 
 

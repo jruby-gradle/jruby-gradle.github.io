@@ -48,6 +48,9 @@ Using the `build.gradle` above, running `./gradlew spec` will result in the
 Ruby-based dependencies being resolved and installed, then `JRubyExec` will
 execute RSpec using JRuby.
 
+NOTE: The version in the above example might be out of date, please refer to the
+link:http://plugins.gradle.org/plugin/com.github.jruby-gradle.base[release
+page] for the latest version of the base plugin.
 
 More examples can be found in the link:cookbook.html[JRuby Gradle Cookbook].
 
