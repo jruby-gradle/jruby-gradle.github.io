@@ -507,7 +507,14 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_quick_start">Quick Start</a></li>
-<li><a href="#_plugins">Plugins</a></li>
+<li><a href="#_plugins">Plugins</a>
+<ul class="sectlevel2">
+<li><a href="#_base">Base</a></li>
+<li><a href="#_jar">Jar</a></li>
+<li><a href="#_war">War</a></li>
+<li><a href="#_storm">Storm</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -515,11 +522,11 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>JRuby Gradle is a set of <a href="http://gradle.org">Gradle</a> plugins which make it
-easy to build, test, manage and package <a href="http://jruby.org">JRuby</a> projects.
-By relying on Gradle to provide much of the basic task and dependency
-management functionality, JRuby Gradle provides high quality build tooling for
-Ruby and Java developers.</p>
+<p><a href="https://github.com/jruby-gradle">JRuby Gradle</a> is a set of
+<a href="http://gradle.org">Gradle</a> plugins which make it easy to build, test,
+manage and package <a href="http://jruby.org">JRuby</a> projects.  By relying on Gradle
+to provide much of the basic task and dependency management functionality,
+JRuby Gradle provides high quality build tooling for Ruby and Java developers.</p>
 </div>
 </div>
 </div>
@@ -589,13 +596,55 @@ page</a> for the latest version of the base plugin.
 <div class="sect1">
 <h2 id="_plugins">Plugins</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_base">Base</h3>
+<div class="paragraph">
+<p>The base plugin is the foundation for all of the other plugins. It provides the
+core JRuby dependency, Ruby gem dependency resolution and the
+<a href="plugins/base.html#jrubyexec">JRubyExec</a> task type.</p>
+</div>
+<div class="paragraph">
+<p>Learn more about <a href="plugins/base.html">the base plugin</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jar">Jar</h3>
+<div class="paragraph">
+<p>The jar plugin helps package <code>.jar</code> files for projects. The plugin supports creating <code>.jar</code> artifacts that are ready to be included in other projects, it also supports creating self-contained executable archives.</p>
+</div>
+<div class="paragraph">
+<p>Learn more about <a href="plugins/jar.html">the jar plugin</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_war">War</h3>
+<div class="paragraph">
+<p>Like the <a href="#_jar">Jar</a> plugin, the war plugin helps package <code>.war</code> files for
+projects. Unlike the Jar plugin this plugin is primarily responsible for
+creating JRuby-based web application artifacts. Similar to the <a href="#_jar">Jar</a> however,
+the war plugin can create self-contained executable archives.</p>
+</div>
+<div class="paragraph">
+<p>Learn more about <a href="plugins/war.html">the war plugin</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storm">Storm</h3>
+<div class="paragraph">
+<p>The Storm plugin enables developers to create
+<a href="http://storm.apache.org">Apache Storm</a> applications in Ruby via the
+<a href="redstorm.html">Redstorm</a> library.</p>
+</div>
+<div class="paragraph">
+<p>Learn more about <a href="plugins/storm.html">the storm plugin</a></p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-08 10:31:48 PST
+Last updated 2014-12-08 14:08:23 PST
 </div>
 </div>
 </body>
