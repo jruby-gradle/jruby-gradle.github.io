@@ -1,0 +1,11 @@
+= JRuby Cookbook
+
+== Basic Examples
+
+=== Running RSpec
+[source,gradle]
+----
+include::examples/rspec.gradle[]
+----
+
+// vim: ft=asciidoc

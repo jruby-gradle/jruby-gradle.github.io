@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.0">
-<title>Hello world</title>
+<title>JRuby Cookbook</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -502,18 +502,60 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Hello world</h1>
+<h1>JRuby Cookbook</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-
+<ul class="sectlevel1">
+<li><a href="#_basic_examples">Basic Examples</a>
+<ul class="sectlevel2">
+<li><a href="#_running_rspec">Running RSpec</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_basic_examples">Basic Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_running_rspec">Running RSpec</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">/* Add the JRuby Gradle &quot;base&quot; plugin as a dependency of our build script */
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
+    }
+}
 
+/*
+ * Importing the JRubyExec type class so we can create our own JRubyExec-based
+ * task below
+ */
+import com.github.jrubygradle.JRubyExec
+
+dependencies {
+    /* We need RSpec gems from rubygems.org to run RSpec */
+    jrubyExec group: 'rubygems', name: 'rspec', version: '3.1.+'
+}
+
+task spec(type: JRubyExec) {
+    group 'JRuby'
+    description 'Execute the RSpecs in JRuby'
+    jrubyArgs '-S'
+    script 'rspec'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-08 12:22:14 PST
+Last updated 2014-12-08 14:01:38 PST
 </div>
 </div>
 </body>

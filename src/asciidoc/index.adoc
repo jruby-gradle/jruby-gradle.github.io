@@ -1,10 +1,10 @@
 = JRuby Gradle
 
-JRuby Gradle is a set of link:http://gradle.org[Gradle] plugins which make it
-easy to build, test, manage and package link:http://jruby.org[JRuby] projects.
-By relying on Gradle to provide much of the basic task and dependency
-management functionality, JRuby Gradle provides high quality build tooling for
-Ruby and Java developers.
+link:https://github.com/jruby-gradle[JRuby Gradle] is a set of
+link:http://gradle.org[Gradle] plugins which make it easy to build, test,
+manage and package link:http://jruby.org[JRuby] projects.  By relying on Gradle
+to provide much of the basic task and dependency management functionality,
+JRuby Gradle provides high quality build tooling for Ruby and Java developers.
 
 
 == Quick Start
@@ -17,31 +17,7 @@ plugin].
 [source,gradle]
 .build.gradle
 ----
-/* Add the JRuby Gradle "base" plugin as a dependency of our build script */
-buildscript {
-    repositories { jcenter() }
-    dependencies {
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
-    }
-}
-
-/*
- * Importing the JRubyExec type class so we can create our own JRubyExec-based
- * task below
- */
-import com.github.jrubygradle.JRubyExec
-
-dependencies {
-    /* We need RSpec gems from rubygems.org to run RSpec */
-    jrubyExec group: 'rubygems', name: 'rspec', version: '3.1.+'
-}
-
-task spec(type: JRubyExec) {
-    group 'JRuby'
-    description 'Execute the RSpecs in JRuby'
-    jrubyArgs '-S'
-    script 'rspec'
-}
+include::examples/rspec.gradle[]
 ----
 
 Using the `build.gradle` above, running `./gradlew spec` will result in the
@@ -56,3 +32,36 @@ More examples can be found in the link:cookbook.html[JRuby Gradle Cookbook].
 
 == Plugins
 
+=== Base
+
+The base plugin is the foundation for all of the other plugins. It provides the
+core JRuby dependency, Ruby gem dependency resolution and the
+link:plugins/base.html#jrubyexec[JRubyExec] task type.
+
+Learn more about link:plugins/base.html[the base plugin]
+
+=== Jar
+
+The jar plugin helps package `.jar` files for projects. The plugin supports creating `.jar` artifacts that are ready to be included in other projects, it also supports creating self-contained executable archives.
+
+Learn more about link:plugins/jar.html[the jar plugin]
+
+=== War 
+
+Like the <<Jar>> plugin, the war plugin helps package `.war` files for
+projects. Unlike the Jar plugin this plugin is primarily responsible for
+creating JRuby-based web application artifacts. Similar to the <<Jar>> however,
+the war plugin can create self-contained executable archives.
+
+Learn more about link:plugins/war.html[the war plugin]
+
+=== Storm
+
+The Storm plugin enables developers to create
+link:http://storm.apache.org[Apache Storm] applications, also referred to as
+"topologies", in Ruby via the link:redstorm.html[Redstorm] library.
+
+Learn more about link:plugins/storm.html[the storm plugin]
+
+
+// vim: ft=asciidoc
