@@ -414,13 +414,76 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>JRuby Gradle</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The best</p>
+<p>JRuby Gradle is a set of <a href="http://gradle.org">Gradle</a> plugins which make it
+easy to build, test, manage and package <a href="http://jruby.org">JRuby</a> projects.
+By relying on Gradle to provide much of the basic task and dependency
+management functionality, JRuby Gradle provides high quality build tooling for
+Ruby and Java developers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start">Quick Start</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The most basic use-case might be running some
+<a href="http://rspec.info">RSpec</a>-based tests with JRuby Gradle&#8217;s
+<a href="http://plugins.gradle.org/plugin/com.github.jruby-gradle.base">base
+plugin</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">/* Add the JRuby Gradle "base" plugin as a dependency of our build script */
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
+    }
+}
+
+/*
+ * Importing the JRubyExec type class so we can create our own JRubyExec-based
+ * task below
+ */
+import com.github.jrubygradle.JRubyExec
+
+dependencies {
+    /* We need RSpec gems from rubygems.org to run RSpec */
+    jrubyExec group: 'rubygems', name: 'rspec', version: '3.1.+'
+}
+
+task spec(type: JRubyExec) {
+    group 'JRuby'
+    description 'Execute the RSpecs in JRuby'
+    jrubyArgs '-S'
+    script 'rspec'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using the <code>build.gradle</code> above, running <code>./gradlew spec</code> will result in the
+Ruby-based dependencies being resolved and installed, then <code>JRubyExec</code> will
+execute RSpec using JRuby.</p>
+</div>
+<div class="paragraph">
+<p>More examples can be found in the <a href="cookbook.html">JRuby Gradle Cookbook</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins">Plugins</h2>
+<div class="sectionbody">
+
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-07 08:23:18 PST
+Last updated 2014-12-08 10:25:53 PST
 </div>
 </div>
 </body>
