@@ -1,0 +1,3 @@
+= The Storm Plugin
+
+// vim: ft=asciidoc

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.0">
-<title>JRuby Cookbook</title>
+<title>JRuby Gradle Cookbook</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -502,25 +502,22 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>JRuby Cookbook</h1>
+<h1>JRuby Gradle Cookbook</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_basic_examples">Basic Examples</a>
-<ul class="sectlevel2">
 <li><a href="#_running_rspec">Running RSpec</a></li>
-</ul>
-</li>
+<li><a href="#_building_an_executable_jar_file">Building an executable .jar file</a></li>
+<li><a href="#_creating_a_war_file">Creating a .war file</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_basic_examples">Basic Examples</h2>
+<h2 id="_running_rspec">Running RSpec</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_running_rspec">Running RSpec</h3>
 <div class="listingblock">
+<div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="gradle">/* Add the JRuby Gradle &quot;base&quot; plugin as a dependency of our build script */
 buildscript {
@@ -551,11 +548,97 @@ task spec(type: JRubyExec) {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_building_an_executable_jar_file">Building an executable .jar file</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">buildscript {
+    repositories { mavenLocal() }
+    dependencies {
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
+    }
+}
+plugins {
+  id &quot;com.github.jruby-gradle.jar&quot; version &quot;0.1.2&quot;
+  id &quot;com.github.johnrengelman.shadow&quot; version &quot;1.1.2&quot;
+}
+
+apply plugin: 'java'
+
+dependencies {
+    gems group: 'rubygems', name: 'protobuf', version: '3.0.+'
+    gems group: 'rubygems', name: 'rake', version: '10.3.+'
+}
+
+
+jrubyJavaBootstrap {
+    jruby {
+        initScript = 'bin/rake'
+    }
+}
+
+// Pull the contents of lib and bin into the root of the created jar file
+sourceSets {
+    main {
+        resources.srcDirs = ['lib', 'bin']
+    }
+}
+
+shadowJar {
+    baseName 'blick-agent'
+    exclude '*.sw*', '*.gitkeep', '*.md'
+
+    jruby {
+        // Use the default GEM installation directory
+        defaultGems()
+        defaultMainClass()
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_a_war_file">Creating a .war file</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">/* Add the JRuby Gradle &quot;war&quot; plugin as a dependency of our build script */
+buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        classpath 'com.github.jruby-gradle:jruby-gradle-war-plugin:0.1.5'
+    }
+}
+
+apply plugin: 'com.github.jruby-gradle.war'
+
+dependencies {
+    /* Enumerate some dependencies that will get pulled into the .war */
+    gems 'rubygems:colorize:0.7.3'
+    gems 'rubygems:sinatra:1.4.5'
+}
+
+jrubyWar {
+    webInf {
+        /* Include our app inside of `my.war/WEB-INF` */
+        from 'app.rb'
+        /* Include the config.ru to boot the app properly */
+        from 'config.ru'
+    }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-08 14:01:38 PST
+Last updated 2014-12-08 16:38:07 PST
 </div>
 </div>
 </body>
