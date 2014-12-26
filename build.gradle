@@ -1,5 +1,5 @@
 plugins {
-  id "org.asciidoctor.gradle.asciidoctor" version "1.5.1"
+  id "org.asciidoctor.convert" version "1.5.2"
 }
 
 repositories {
@@ -9,11 +9,14 @@ repositories {
 
 asciidoctor {
     sourceDir 'src/asciidoc'
-    outputDir '.'
     attributes 'toc': 'right',
                'source-highlighter': 'coderay',
                'toc-title': 'Table of Contents'
 }
 
+task deploy ( type : Exec ) {
+    executable 'git'
+    args 'subtree', 'push', '--prefix', 'build/asciidoc/html5', 'origin', 'master'
+}
 
-// vim: ft=groovy
+defaultTasks 'asciidoctor'
