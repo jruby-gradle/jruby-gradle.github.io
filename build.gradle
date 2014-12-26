@@ -9,6 +9,7 @@ repositories {
 
 asciidoctor {
     sourceDir 'src/asciidoc'
+    outputDir 'docs'
     attributes 'toc': 'right',
                'source-highlighter': 'coderay',
                'toc-title': 'Table of Contents'
@@ -16,7 +17,7 @@ asciidoctor {
 
 task deploy ( type : Exec ) {
     executable 'git'
-    args 'subtree', 'push', '--prefix', 'build/asciidoc/html5', 'origin', 'master'
+    args 'subtree', 'push', '--prefix', 'docs/html5', 'origin', 'master'
 }
 
 defaultTasks 'asciidoctor'
