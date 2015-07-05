@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.0">
-<title>JRuby Gradle</title>
+<title>The Base Plugin</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -411,135 +411,408 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>JRuby Gradle</h1>
+<h1>The Base Plugin</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/jruby-gradle">JRuby Gradle</a> is a set of
-<a href="http://gradle.org">Gradle</a> plugins which make it easy to build, test,
-manage and package <a href="http://jruby.org">JRuby</a> projects.  By relying on Gradle
-to provide much of the basic task and dependency management functionality,
-JRuby Gradle provides high quality build tooling for Ruby and Java developers.</p>
+<p>The purpose of plugin is to encapsulate useful <a href="http://www.gradle.org">Gradle</a>
+functionality for JRuby projects. Use of this plugin replaces the need for both
+<a href="http://bundler.io">Bundler</a> and <a href="https://github.com/jruby/warbler">Warbler</a>
+in JRuby projects.</p>
+</div>
+<div class="paragraph">
+<p>The Ruby gem dependency code for this project relies on the <a href="http://rubygems-proxy.torquebox.org/">Rubygems Maven proxy</a>
+provided by the <a href="http://torquebox.org">Torquebox</a>.</p>
+</div>
+<div class="paragraph">
+<p>This is the base plugin. If you are interesting in doing the following then consult the pages for the appropriate
+plugins:</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_quick_start">Quick Start</h2>
+<h2 id="_compatilibity">Compatilibity</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The most basic use-case might be running some
-<a href="http://rspec.info">RSpec</a>-based tests with JRuby Gradle&#8217;s
-<a href="http://plugins.gradle.org/plugin/com.github.jruby-gradle.base">base
-plugin</a>.</p>
+<p>This plugin requires Gradle 2.0 or better</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started">Getting Started</h2>
+<div class="sectionbody">
 <div class="listingblock">
-<div class="title">build.gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-gradle" data-lang="gradle">/* Add the JRuby Gradle "base" plugin as a dependency of our build script */
-buildscript {
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">buildscript {
     repositories { jcenter() }
+
     dependencies {
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
+      classpath group: 'com.github.jruby-gradle', name: 'jruby-gradle-plugin', version: '0.1.2'
     }
 }
 
-/*
- * Importing the JRubyExec type class so we can create our own JRubyExec-based
- * task below
- */
-import com.github.jrubygradle.JRubyExec
+apply plugin: 'com.github.jruby-gradle.base'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_gems">Adding gems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also add Ruby gem dependencies in your <code>build.gradle</code> file under the
+<code>gem</code> configuration, e.g.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    gems group: 'rubygems', name: 'sinatra', version: '1.4.5'
+    gems group: 'rubygems', name: 'rake', version: '10.3.+'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default_tasks">Default Tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin provides the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>jrubyPrepareGems</code> - Extract GEMs declared as dependencies under <code>gems</code> to <code>jruby.gemInstallDir</code>. This is as instance
+of <code>JRubyPrepareGems</code>.</p>
+</li>
+<li>
+<p><code>jrubyPrepare</code> - Call <code>jrubyPrepareGems</code>. Also copies the
+content of Java-based dependencies into <code>.jarcache/</code> for interpreted use</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jrubyexec_task_for_executing_a_ruby_script">JRubyExec - Task for Executing a Ruby Script</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a similar vein to <a href="http://gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html">JavaExec</a> and
+<a href="http://gradle.org/docs/current/groovydoc/org/gradle/plugins/javascript/rhino/RhinoShellExec.html">RhinoShellExec</a>,
+the <code>JRubyExec</code> allows for Ruby scripts to be executed in a Gradle script using JRuby.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">import com.github.jrubygradle.JRubyExec
 
 dependencies {
-    /* We need RSpec gems from rubygems.org to run RSpec */
-    jrubyExec group: 'rubygems', name: 'rspec', version: '3.1.+'
+    jrubyExec 'rubygems:credit_card_validator:1.2.0'
 }
 
-task spec(type: JRubyExec) {
-    group 'JRuby'
-    description 'Execute the RSpecs in JRuby'
-    jrubyArgs '-S'
-    script 'rspec'
+task runMyScript( type: JRubyExec ) {
+    script 'scripts/runme.rb'
+    scriptArgs '-x', '-y'
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Using the <code>build.gradle</code> above, running <code>./gradlew spec</code> will result in the
-Ruby-based dependencies being resolved and installed, then <code>JRubyExec</code> will
-execute RSpec using JRuby.</p>
+<p>Common methods for <code>JRubyExec</code> for executing a script</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The version in the above example might be out of date, please refer to the
-<a href="http://plugins.gradle.org/plugin/com.github.jruby-gradle.base">release
-page</a> for the latest version of the base plugin.
-</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p><code><code>script</code></code> - <code><code>Object</code></code> (Usually File or String). Path to the script.</p>
+</li>
+<li>
+<p><code><code>scriptArgs</code></code> - <code><code>List</code></code>.  List of arguments to pass to script.</p>
+</li>
+<li>
+<p><code><code>workingDir</code></code> - <code><code>Object</code></code> (Usually File or String).  Working directory for script.</p>
+</li>
+<li>
+<p><code><code>environment</code></code> - <code><code>Map</code></code>.  Environment to be set. Do not set <code><code>GEM_HOME</code></code> or <code><code>GEM_PATH</code></code> with this method.</p>
+</li>
+<li>
+<p><code><code>standardInput</code></code> - <code><code>InputStream</code></code>.  Set an input stream to be read by the script.</p>
+</li>
+<li>
+<p><code><code>standardOutput</code></code> - <code><code>OutputStream</code></code>.  Capture the output of the script.</p>
+</li>
+<li>
+<p><code><code>errorOutput</code></code> - <code><code>OutputStream</code></code>.  Capture the error output of the script.</p>
+</li>
+<li>
+<p><code><code>ignoreExitValue</code></code> - <code><code>Boolean</code></code>.  Ignore the JVm exit value. Exit values are only effective if the exit value of the Ruby script is correctly communicated back to the JVM.</p>
+</li>
+<li>
+<p><code><code>configuration</code></code> - <code><code>String</code></code>.  Configuration to copy gems from. (*)</p>
+</li>
+<li>
+<p><code><code>classpath</code></code> - <code><code>List</code></code>.  Additional Jars/Directories to place on classpath.</p>
+</li>
+<li>
+<p><code><code>jrubyVersion</code></code> - <code><code>String</code></code>.  JRuby version to use if not the same as <code><code>project.jruby.execVersion</code></code>.</p>
+</li>
+<li>
+<p><code><code>gemWorkDir</code></code> - <code><code>File</code></code>. Provide a custom working directory for unpacking GEMs. By default each <code>JRubyExec</code> task
+uses it&#8217;s own work directory. Use this to set a common work directory for a number of tasks.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>More examples can be found in the <a href="cookbook.html">JRuby Gradle Cookbook</a>.</p>
+<p>(*) If <code><code>jRubyVersion</code></code> has not been set, <code><code>jrubyExec</code></code> will used as
+configuration. However, if <code><code>jRubyVersion</code></code> has been set, no gems will be used unless an explicit configuration has been provided</p>
+</div>
+<div class="paragraph">
+<p>Additional <code><code>JRubyExec</code></code> methods for controlling the JVM instance</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><code>jvmArgs</code></code> - <code><code>List</code></code>. See [jvmArgs](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs</a>)</p>
+</li>
+<li>
+<p><code><code>allJvmArgs</code></code> - <code><code>List</code></code>. See [allJvmArgs](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:allJvmArgs" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:allJvmArgs</a>)</p>
+</li>
+<li>
+<p><code><code>systemProperties</code></code> - <code><code>Map</code></code>. See [systemProperties](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:systemProperties" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:systemProperties</a>)</p>
+</li>
+<li>
+<p><code><code>bootstrapClassPath</code></code> - <code><code>FileCollection</code></code> or <code><code>List</code></code>. See [bootstrapClassPath](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:bootstrapClasspath" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:bootstrapClasspath</a>)</p>
+</li>
+<li>
+<p><code><code>minHeapSize</code></code> - <code><code>String</code></code>. See [minHeapSize](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html</a>)</p>
+</li>
+<li>
+<p><code><code>maxHeapSize</code></code> - <code><code>String</code></code>. See [maxHeapSize](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:maxHeapSize" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:maxHeapSize</a>)</p>
+</li>
+<li>
+<p><code><code>defaultCharacterEncoding</code></code> - <code><code>String</code></code>. See [defaultCharacterEncoding](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html</a>)</p>
+</li>
+<li>
+<p><code><code>enableAssertions</code></code> - <code><code>Boolean</code></code>. See [enableAssertions](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:enableAssertions" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:enableAssertions</a>)</p>
+</li>
+<li>
+<p><code><code>debug</code></code> - <code><code>Boolean</code></code>. See [debug](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:debug" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:debug</a>)</p>
+</li>
+<li>
+<p><code><code>copyTo</code></code> - <code><code>JavaForkOptions</code></code>. See [copyTo](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html</a>)</p>
+</li>
+<li>
+<p><code><code>executable</code></code> - <code><code>Object</code></code> (Usually <code><code>File</code></code> or <code><code>String</code></code>). See [executable](<a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:executable" class="bare">http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:executable</a>)</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_plugins">Plugins</h2>
+<h2 id="_jrubyexec_extension">jrubyexec extension</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Similar to <code><code>javaexec</code></code> and <code><code>exec</code></code> it is possible to add the execution of a jruby script within another task</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">task needSomeRubyLove {
+  jrubyexec {
+    script 'scripts/runme.rb'
+    scriptArgs '-x', '-y'
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The behaviour of <code>project.jrubyexec</code> is slightly different to that of <code>JRubyExec</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The version of <code>jruby-complete</code> is strictly tied to the <code>jruby.execVersion</code>. Therefore trying to set <code>jrubyVersion</code>
+in the <code><code>jrubyexec</code></code> closure will cause a failure</p>
+</li>
+<li>
+<p>GEMs and additional JARs are only taken from the <code>jrubyExec</code> configuration.</p>
+</li>
+<li>
+<p>It is not possible to supply a <code>configuration</code> parameter to the <code>jrubyexec</code> closure.</p>
+</li>
+<li>
+<p>GEMs will be installed to <code>jruby.gemInstallDir</code>. Existing gems will not be overwritten.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As with <code>JRubyExec</code>, <code>args</code>, <code>setArgs</code> and <code>main</code> are illegal within the <code>jrubyexec</code> closure.
+All other methods should work.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_a_ruby_path_command">Running a Ruby PATH command</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because <code>JRubyExec</code> checks for the existence of the script, it might look at first whether running Ruby commands from
+<code>PATH</code> could be difficult. However, this is totally possible by utilising <code>jrubyArgs</code> and passing <code>-S</code> as one would do
+ when using <code>ruby</code> or <code>jruby</code> on the command-line. Here is an example of running
+<code>rake</code> as task.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">task rake( type : JRubyExec ) {
+    jrubyArgs '-S'
+    script 'rake'
+    scriptArgs '/path/to/Rakefile', 'target1', 'target2'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or even</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">ext {
+    rake = { String target -&gt;
+        jrubyexec {
+            jrubyArgs '-S'
+            script 'rake'
+            scriptArgs '/path/to/Rakefile', target
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jrubypreparegems_a_task_for_unpacking_gems">JRubyPrepareGems - A task for unpacking GEMs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unpacking occurs using the default <code>jruby</code> version as set by <code>jruby.execVersion</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">import com.github.jrubygradle.JRubyPrepareGems
+
+task unpackMyGems( type : JRubyPrepareGems ) {
+
+  // Parent directory for unpacking GEMs.
+  // Gems will end up in a subdirectory 'gems/GemName-GemVersion'
+  outputDir buildDir
+
+  // Add one or more gems
+  // Can be String(s), File(s), FileCollection(s) or Configuration(s)
+  gems project.configuration.gems
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_usage">Advanced Usage</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_base">Base</h3>
+<h3 id="_using_a_custom_gem_repository">Using a custom Gem repository</h3>
 <div class="paragraph">
-<p>The base plugin is the foundation for all of the other plugins. It provides the
-core JRuby dependency, Ruby gem dependency resolution and the
-<a href="plugins/base.html#jrubyexec">JRubyExec</a> task type.</p>
-</div>
-<div class="paragraph">
-<p>Learn more about <a href="plugins/base.html">the base plugin</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_jar">Jar</h3>
-<div class="paragraph">
-<p>The jar plugin helps package <code>.jar</code> files for projects. The plugin supports creating <code>.jar</code> artifacts that are ready to be included in other projects, it also supports creating self-contained executable archives.</p>
+<p>By default the jruby plugin will use
+<a href="http://rubygems-proxy.torquebox.org)">rubygems-proxy.torquebox.org</a> as its
+source of Ruby gems. This is a server operated by the Torquebox project which
+presents <a href="https://rubygems.org">rubygems.org</a> as a Maven repository.</p>
 </div>
 <div class="paragraph">
-<p>Learn more about <a href="plugins/jar.html">the jar plugin</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_war">War</h3>
-<div class="paragraph">
-<p>Like the <a href="#_jar">Jar</a> plugin, the war plugin helps package <code>.war</code> files for
-projects. Unlike the Jar plugin this plugin is primarily responsible for
-creating JRuby-based web application artifacts. Similar to the <a href="#_jar">Jar</a> however,
-the war plugin can create self-contained executable archives.</p>
+<p>If you <strong>do not</strong> wish to use this repository, you can run your own Maven
+proxy repository for either rubygems.org or your own gem repository by
+running the <a href="https://github.com/torquebox/rubygems-servlets">rubygems-servlets</a>
+server.</p>
 </div>
 <div class="paragraph">
-<p>Learn more about <a href="plugins/war.html">the war plugin</a></p>
+<p>You can then use that custom Gem repository with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">jruby {
+    defaultRepositories = false
+}
+
+repositories {
+    maven { url : 'http://localhost:8989/releases' }
+}
+
+dependencies {
+    gems group: 'com.lookout', name: 'custom-gem', version: '1.0.+'
+}</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_storm">Storm</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_ruby_interpreter">Using the Ruby interpreter</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Storm plugin enables developers to create
-<a href="http://storm.apache.org">Apache Storm</a> applications, also referred to as
-"topologies", in Ruby via the <a href="redstorm.html">Redstorm</a> library.</p>
+<p>There are still plenty of cases, such as for local development, when you might
+not want to create a full <code>.war</code> file to run some tests. In order to use the
+same gems and <code>.jar</code> based dependencies, add the following to the entry point
+for your application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># Hack our GEM_HOME to make sure that the `rubygems` support can find our
+# unpacked gems in build/vendor/
+vendored_gems = File.expand_path(File.dirname(__FILE__) + '/build/vendor')
+if File.exists?(vendored_gems)
+  ENV['GEM_HOME'] = vendored_gems
+end
+
+jar_cache = File.expand_path(File.dirname(__FILE__) + '/.jarcache/')
+if File.exists?(jar_cache)
+  # Under JRuby `require`ing a `.jar` file will result in it being added to the
+  # classpath for easy importing
+  Dir["#{jar_cache}/*.jar"].each { |j| require j }
+end</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Learn more about <a href="plugins/storm.html">the storm plugin</a></p>
+<p><strong>Note:</strong> in the example above, the <code>.rb</code> file is assuming it&#8217;s in the top
+level of the source tree, i.e. where <code>build.gradle</code> is located</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quickstart_for_those_unfamiliar_with_gradle">Quickstart for those unfamiliar with Gradle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Note:</strong> This assumes you already have [Gradle](<a href="http://gradle.org" class="bare">http://gradle.org</a>) installed. If you are not on Windows it is recommended
+that you use [GVM](<a href="http://gvmtool.net" class="bare">http://gvmtool.net</a>) to install Gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">% mkdir fancy-webapp
+% cd fancy-webapp
+% git init
+Initialized empty Git repository in /usr/home/tyler/source/github/fancy-webapp/.git/
+% gradle wrapper init  # Create the wrappers to easily bootstrap others
+:wrapper
+:init
+
+BUILD SUCCESSFUL
+
+Total time: 6.411 secs
+% git add gradle gradlew gradlew.bat
+% git commit -m "Initial commit with gradle wrappers"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit the created <code>build.gradle</code> file in the root of <code>fancy-webapp/</code> as above</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-07-04 20:10:36 PDT
+Last updated 2015-07-04 20:10:46 PDT
 </div>
 </div>
 </body>

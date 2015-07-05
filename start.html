@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.0">
-<title>JRuby Gradle</title>
+<title>Hello world</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -411,131 +411,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>JRuby Gradle</h1>
+<h1>Hello world</h1>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/jruby-gradle">JRuby Gradle</a> is a set of
-<a href="http://gradle.org">Gradle</a> plugins which make it easy to build, test,
-manage and package <a href="http://jruby.org">JRuby</a> projects.  By relying on Gradle
-to provide much of the basic task and dependency management functionality,
-JRuby Gradle provides high quality build tooling for Ruby and Java developers.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_quick_start">Quick Start</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The most basic use-case might be running some
-<a href="http://rspec.info">RSpec</a>-based tests with JRuby Gradle&#8217;s
-<a href="http://plugins.gradle.org/plugin/com.github.jruby-gradle.base">base
-plugin</a>.</p>
-</div>
-<div class="listingblock">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-gradle" data-lang="gradle">/* Add the JRuby Gradle "base" plugin as a dependency of our build script */
-buildscript {
-    repositories { jcenter() }
-    dependencies {
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.9'
-    }
-}
 
-/*
- * Importing the JRubyExec type class so we can create our own JRubyExec-based
- * task below
- */
-import com.github.jrubygradle.JRubyExec
-
-dependencies {
-    /* We need RSpec gems from rubygems.org to run RSpec */
-    jrubyExec group: 'rubygems', name: 'rspec', version: '3.1.+'
-}
-
-task spec(type: JRubyExec) {
-    group 'JRuby'
-    description 'Execute the RSpecs in JRuby'
-    jrubyArgs '-S'
-    script 'rspec'
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Using the <code>build.gradle</code> above, running <code>./gradlew spec</code> will result in the
-Ruby-based dependencies being resolved and installed, then <code>JRubyExec</code> will
-execute RSpec using JRuby.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The version in the above example might be out of date, please refer to the
-<a href="http://plugins.gradle.org/plugin/com.github.jruby-gradle.base">release
-page</a> for the latest version of the base plugin.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>More examples can be found in the <a href="cookbook.html">JRuby Gradle Cookbook</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_plugins">Plugins</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_base">Base</h3>
-<div class="paragraph">
-<p>The base plugin is the foundation for all of the other plugins. It provides the
-core JRuby dependency, Ruby gem dependency resolution and the
-<a href="plugins/base.html#jrubyexec">JRubyExec</a> task type.</p>
-</div>
-<div class="paragraph">
-<p>Learn more about <a href="plugins/base.html">the base plugin</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_jar">Jar</h3>
-<div class="paragraph">
-<p>The jar plugin helps package <code>.jar</code> files for projects. The plugin supports creating <code>.jar</code> artifacts that are ready to be included in other projects, it also supports creating self-contained executable archives.</p>
-</div>
-<div class="paragraph">
-<p>Learn more about <a href="plugins/jar.html">the jar plugin</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_war">War</h3>
-<div class="paragraph">
-<p>Like the <a href="#_jar">Jar</a> plugin, the war plugin helps package <code>.war</code> files for
-projects. Unlike the Jar plugin this plugin is primarily responsible for
-creating JRuby-based web application artifacts. Similar to the <a href="#_jar">Jar</a> however,
-the war plugin can create self-contained executable archives.</p>
-</div>
-<div class="paragraph">
-<p>Learn more about <a href="plugins/war.html">the war plugin</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_storm">Storm</h3>
-<div class="paragraph">
-<p>The Storm plugin enables developers to create
-<a href="http://storm.apache.org">Apache Storm</a> applications, also referred to as
-"topologies", in Ruby via the <a href="redstorm.html">Redstorm</a> library.</p>
-</div>
-<div class="paragraph">
-<p>Learn more about <a href="plugins/storm.html">the storm plugin</a></p>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
