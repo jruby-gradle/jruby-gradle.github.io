@@ -1,0 +1,135 @@
+<html>
+<head>
+<link href='stylesheets/foundation.css' rel='stylesheet'>
+<link href='stylesheets/jrubygradle.css' rel='stylesheet'>
+<title>
+Download JRuby/Gradle
+</title>
+</head>
+<body>
+<a href='https://github.com/jruby-gradle'>
+<img alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' src='https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67' style='position: absolute; top: 0; right: 0; border: 0;'>
+</a>
+<div id='main_nav'>
+<ul>
+<li>
+<a href='index.html'>
+Home
+</a>
+</li>
+<li>
+<a href='docs.html'>
+Documentation
+</a>
+</li>
+<li>
+<a href='community.html'>
+Community
+</a>
+</li>
+<li>
+<a href='news.html'>
+News
+</a>
+</li>
+<li>
+<a href='download.html'>
+Download
+</a>
+</li>
+<li>
+<a href='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin'>
+<img src='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master'>
+</a>
+</li>
+</ul>
+</div>
+<div id='content'>
+<h1>
+Download JRuby/Gradle
+</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can find historical versions of all the released plugins
+on <a href=":https://bintray.com/jruby-gradle/plugins">Bintray</a>, or use the code
+snippets below to incorporate the latest plugins into your own <a href=":http://gradle.org">Gradle</a> file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="base-plugin"><a class="anchor" href="#base-plugin"></a>Base plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    jcenter()
+
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:0.4.0&quot;
+    }
+}
+apply plugin: &quot;com.github.jruby-gradle.base&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jar-plugin"><a class="anchor" href="#jar-plugin"></a>Jar plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    jcenter()
+
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-jar-plugin:0.4.0&quot;
+    }
+}
+apply plugin: &quot;com.github.jruby-gradle.jar&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="war-plugin"><a class="anchor" href="#war-plugin"></a>War plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    jcenter()
+
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-war-plugin:0.4.0&quot;
+    }
+}
+apply plugin: &quot;com.github.jruby-gradle.war&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="storm-plugin"><a class="anchor" href="#storm-plugin"></a>Storm plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    jcenter()
+
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-storm-plugin:0.1.6&quot;
+    }
+}
+apply plugin: &quot;com.github.jruby-gradle.storm&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</body>
+</html>

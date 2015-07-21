@@ -7,6 +7,9 @@ JRuby/Gradle
 </title>
 </head>
 <body>
+<a href='https://github.com/jruby-gradle'>
+<img alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' src='https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67' style='position: absolute; top: 0; right: 0; border: 0;'>
+</a>
 <div id='main_nav'>
 <ul>
 <li>
@@ -29,22 +32,56 @@ Community
 News
 </a>
 </li>
+<li>
+<a href='download.html'>
+Download
+</a>
+</li>
+<li>
+<a href='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin'>
+<img src='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master'>
+</a>
+</li>
 </ul>
 </div>
+<div id='content'>
 <h1>
 JRuby/Gradle
 </h1>
-<div class="sect1">
-<h2 id="about"><a class="anchor" href="#about"></a>About</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="imageblock right">
+<div class="content">
+<img src="images/jruby-gradle.png" alt="jruby gradle">
+</div>
+</div>
 <div class="paragraph">
 <p><a href="https://github.com/jruby-gradle/">JRuby/Gradle</a> is a collection of
 <a href="http://www.gradle.org">Gradle</a> plugins which make it easy to build, test,
-manage and package Ruby applications. By compbining the portability of
+manage and package Ruby applications. By combining the portability of
 <a href="http://jruby.org">JRuby</a> with Gradle&#8217;s excellent task and dependency
-management functionality, JRuby/Gradle provides high quality build tooling for
+management, <strong>JRuby/Gradle</strong> provides high quality build tooling for
 Ruby and Java developers alike.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="plugins-available"><a class="anchor" href="#plugins-available"></a>Plugins available:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="base.html">Base</a></p>
+</li>
+<li>
+<p><a href="jar.html">Jar</a></p>
+</li>
+<li>
+<p><a href="war.html">War</a></p>
+</li>
+<li>
+<p><a href="storm.html">Storm</a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -52,11 +89,41 @@ Ruby and Java developers alike.</p>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="running-some-ruby"><a class="anchor" href="#running-some-ruby"></a>Running some Ruby</h3>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">import com.github.jrubygradle.JRubyExec
 
+buildscript {
+    dependencies {
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
+    }
+}
+
+apply plugin : 'com.github.jruby-gradle.base'
+
+dependencies {
+    jrubyExec ':credit_card_validator:1.1.0@gem'
+}
+
+jruby {
+    defaultRepositories = false
+}
+
+task requiresGems( type : JRubyExec ) {
+    script        &quot;scripts/requiresGem.rb&quot;
+}
+
+task runGradleTest {
+    dependsOn requiresGems
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="packaging-some-ruby"><a class="anchor" href="#packaging-some-ruby"></a>Packaging some Ruby</h3>
 
+</div>
 </div>
 </div>
 </div>
