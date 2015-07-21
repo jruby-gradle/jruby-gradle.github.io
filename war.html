@@ -49,8 +49,136 @@ Download
 <h1>
 War plugin
 </h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://travis-ci.org/jruby-gradle/jruby-gradle-plugin"><img src="https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master" alt="Build Status"></a>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://bintray.com/jruby-gradle/plugins/jruby-gradle-war-plugin/_latestVersion"><img src="https://api.bintray.com/packages/jruby-gradle/plugins/jruby-gradle-war-plugin/images/download.svg" alt="download"></a>
+</div>
+</div>
 <div class="paragraph">
-<p>Unresolved directive in war.adoc - include::./../jruby-gradle-war-plugin/README.ad[]</p>
+<p>Plugin for creating JRuby-based web archives</p>
+</div>
+<div class="paragraph">
+<p>In order to include Java-based dependencies in a <code>.war</code> file, declare those
+dependencies under the <code>jrubyWar</code> configuration, e.g.:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">dependencies {
+    jrubyWar group: 'org.apache.kafka', name: 'kafka_2.9.2', version: '0.8.+'
+    jrubyWar group: 'log4j', name: 'log4j', version: '1.2.+', transitive: true
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dependencies declared under the <code>jrubyWar</code> configuration will be copied into
+<code>.war/WEB-INF/libs</code> when the archive is created.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tasks"><a class="anchor" href="#tasks"></a>Tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin provides the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>jrubyWar</code> - Creates a runnable web archive file in <code>build/libs</code> for your
+project.</p>
+</li>
+<li>
+<p><code>jrubyClean</code> - Cleans up the temporary directories that tasks like
+<code>jrubyWar</code>- Creates a <code>war</code> file</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-war"><a class="anchor" href="#creating-a-war"></a>Creating a .war</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>full</strong> example of this can be found in the
+[hellowarld](<a href="https://github.com/rtyler/hellowarld" class="bare">https://github.com/rtyler/hellowarld</a>) repository.</p>
+</div>
+<div class="paragraph">
+<p>Configuring the war:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        classpath group: 'com.github.jruby-gradle', name: 'jruby-gradle-war-plugin', version: '0.1.2+'
+    }
+}
+apply plugin: 'com.github.jruby-gradle.war'
+
+
+dependencies {
+    gems 'rubygems:rake:10.0.+'
+    gems 'rubygems:colorize:0.7.3'
+    gems 'rubygems:sinatra:1.4.5'
+}
+
+jrubyWar {
+    webInf {
+        from 'Rakefile'
+        from 'config.ru'
+        into('app') { from 'app' }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above configuration will copy the contents of <code>app/</code>, <code>Rakefile</code>, and
+<code>config.ru</code> into the <code>WEB-INF/</code> directory within the <code>.war</code> file</p>
+</div>
+<div class="paragraph">
+<p>Once your application is ready, you can create the <code>.war</code> by executing the <code>jrubyWar</code> task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="bash">$ ./gradlew jrubyWar
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jrubyPrepareGems
+/usr/home/tyler/.gradle/caches/modules-2/files-2.1/org.jruby/jruby-complete/1.7.15/4d9cb332bad3633c9c23a720542f456dc0c58a81/jruby-complete-1.7.15.jar!/META-INF/jruby.home/lib/ruby/shared/rubygems/installer.rb:507 warning: executable? does not in this environment and will return a dummy value
+Successfully installed tilt-1.4.1
+/usr/home/tyler/.gradle/caches/modules-2/files-2.1/org.jruby/jruby-complete/1.7.15/4d9cb332bad3633c9c23a720542f456dc0c58a81/jruby-complete-1.7.15.jar!/META-INF/jruby.home/lib/ruby/shared/rubygems/installer.rb:507 warning: executable? does not in this environment and will return a dummy value
+Successfully installed rack-1.5.2
+Successfully installed rack-protection-1.5.3
+/usr/home/tyler/.gradle/caches/modules-2/files-2.1/org.jruby/jruby-complete/1.7.15/4d9cb332bad3633c9c23a720542f456dc0c58a81/jruby-complete-1.7.15.jar!/META-INF/jruby.home/lib/ruby/shared/rubygems/installer.rb:507 warning: executable? does not in this environment and will return a dummy value
+Successfully installed rake-10.0.4
+Successfully installed colorize-0.7.3
+Successfully installed sinatra-1.4.5
+6 gems installed
+:jrubyPrepare
+:jrubyWar
+
+BUILD SUCCESSFUL
+
+Total time: 20.342 secs
+%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the <code>.war</code> has been created you can find it in <code>build/libs</code> and deploy
+that into a servlet container such as Tomcat or Jetty.</p>
+</div>
+</div>
 </div>
 </div>
 <hr>
