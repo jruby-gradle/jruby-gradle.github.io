@@ -1,0 +1,57 @@
+<feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
+<id>http://jruby-gradle.org/</id>
+<title>JRuby/Gradle News</title>
+<updated>2015-07-20T16:21:55-07:00</updated>
+<link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
+<link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
+<entry>
+<id>http://jruby-gradle.org/news/2015/07/09/jrubyjar-improvements.html</id>
+<title></title>
+<updated>2015-07-20T16:21:55-07:00</updated>
+<published>2015-07-09T00:00:00+00:00</published>
+<link href='http://jruby-gradle.org/news/2015/07/09/jrubyjar-improvements.html' rel='alternate' type='text/html'>
+<summary>
+
+Improvements to jar packaging
+
+
+Hello
+
+
+...
+</summary>
+<content type='html'>
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;improvements-to-jar-packaging&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#improvements-to-jar-packaging&quot;&gt;&lt;/a&gt;Improvements to jar packaging&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Hello&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+</entry>
+<entry>
+<id>http://jruby-gradle.org/news/2015/07/08/new-jruby-default.html</id>
+<title></title>
+<updated>2015-07-20T16:21:55-07:00</updated>
+<published>2015-07-08T00:00:00+00:00</published>
+<link href='http://jruby-gradle.org/news/2015/07/08/new-jruby-default.html' rel='alternate' type='text/html'>
+<summary>
+
+JRuby 1.7.21 now defaulted
+
+
+
+...
+</summary>
+<content type='html'>
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;jruby-1-7-21-now-defaulted&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#jruby-1-7-21-now-defaulted&quot;&gt;&lt;/a&gt;JRuby 1.7.21 now defaulted&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+</entry>
+</feed>
