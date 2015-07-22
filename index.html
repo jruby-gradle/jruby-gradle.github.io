@@ -64,10 +64,9 @@ manage and package Ruby applications. By combining the portability of
 management, <strong>JRuby/Gradle</strong> provides high quality build tooling for
 Ruby and Java developers alike.</p>
 </div>
+<div class="paragraph">
+<p><strong>Plugins available:</strong></p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="plugins-available"><a class="anchor" href="#plugins-available"></a>Plugins available:</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -85,39 +84,59 @@ Ruby and Java developers alike.</p>
 </ul>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="quick-start"><a class="anchor" href="#quick-start"></a>Quick Start</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="running-some-ruby"><a class="anchor" href="#running-some-ruby"></a>Running some Ruby</h3>
+<div class="paragraph">
+<p>The simplest example is a hello-world from Gradle, using JRuby/Gradle we can
+execute a Ruby script, which has Ruby-based dependencies:</p>
+</div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="gradle">import com.github.jrubygradle.JRubyExec
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: &quot;com.github.jruby-gradle.base&quot;
 
-buildscript {
-    dependencies {
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
-    }
-}
-
-apply plugin : 'com.github.jruby-gradle.base'
+import com.github.jrubygradle.JRubyExec
 
 dependencies {
-    jrubyExec ':credit_card_validator:1.1.0@gem'
+    /* Using the built-in `jrubyExec` configuration to describe the
+     * dependencies our JRubyExec-based tasks will need
+     */
+    jrubyExec &quot;rubygems:colorize:0.7.7+&quot;
 }
 
-jruby {
-    defaultRepositories = false
-}
-
-task requiresGems( type : JRubyExec ) {
-    script        &quot;scripts/requiresGem.rb&quot;
-}
-
-task runGradleTest {
-    dependsOn requiresGems
+task printSomePrettyOutputPlease(type: JRubyExec) {
+    description &quot;Execute our nice local print-script.rb&quot;
+    script &quot;${projectDir}/print-script.rb&quot;
 }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">print-script.rb</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="ruby"><span class="doctype">#!/usr/bin/env ruby</span>
+require <span class="string"><span class="delimiter">'</span><span class="content">colorize</span><span class="delimiter">'</span></span>
+
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">-</span><span class="delimiter">&quot;</span></span> * <span class="integer">20</span>
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">Ruby version: </span><span class="inline"><span class="inline-delimiter">#{</span><span class="predefined-constant">RUBY_VERSION</span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">Ruby platform: </span><span class="inline"><span class="inline-delimiter">#{</span><span class="predefined-constant">RUBY_PLATFORM</span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">-</span><span class="delimiter">&quot;</span></span> * <span class="integer">20</span>
+
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">Roses are red</span><span class="delimiter">&quot;</span></span>.red
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">Violets are blue</span><span class="delimiter">&quot;</span></span>.blue
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">I can use JRuby/Gradle</span><span class="delimiter">&quot;</span></span>.green
+puts <span class="string"><span class="delimiter">&quot;</span><span class="content">And now you can too!</span><span class="delimiter">&quot;</span></span>.yellow</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Executing <code>./gradlew printSomePrettyOutputPlease</code> results in the following:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/print-script-output.png" alt="print script output">
 </div>
 </div>
 </div>
