@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href='stylesheets/foundation.css' rel='stylesheet'>
-<link href='stylesheets/jrubygradle.css' rel='stylesheet'>
+<link href='/stylesheets/foundation.css' rel='stylesheet'>
+<link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
 <link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
 <title>
 Base plugin
@@ -14,27 +14,27 @@ Base plugin
 <div id='main_nav'>
 <ul>
 <li>
-<a href='index.html'>
+<a href='/'>
 Home
 </a>
 </li>
 <li>
-<a href='docs.html'>
+<a href='/docs/'>
 Documentation
 </a>
 </li>
 <li>
-<a href='community.html'>
+<a href='/community/'>
 Community
 </a>
 </li>
 <li>
-<a href='news.html'>
+<a href='/news/'>
 News
 </a>
 </li>
 <li>
-<a href='download.html'>
+<a href='/download/'>
 Download
 </a>
 </li>
@@ -82,7 +82,7 @@ Base plugin
 
     dependencies {
         <span class="comment">/* check jruby-gradle.org for the latest release */</span>
-        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:0.4.0</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:1.0.0</span><span class="delimiter">&quot;</span></span>
     }
 }
 
@@ -101,7 +101,8 @@ apply <span class="key">plugin</span>: <span class="string"><span class="delimit
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="groovy">dependencies {
     gems <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">rubygems</span><span class="delimiter">'</span></span>, <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span>, <span class="key">version</span>: <span class="string"><span class="delimiter">'</span><span class="content">1.4.5</span><span class="delimiter">'</span></span>
-    gems <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">rubygems</span><span class="delimiter">'</span></span>, <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">rake</span><span class="delimiter">'</span></span>, <span class="key">version</span>: <span class="string"><span class="delimiter">'</span><span class="content">10.3.+</span><span class="delimiter">'</span></span>
+    <span class="comment">/* alternatively */</span>
+    gems <span class="string"><span class="delimiter">'</span><span class="content">rubygems:rake:10.3.+</span><span class="delimiter">'</span></span>
 }</code></pre>
 </div>
 </div>
@@ -147,7 +148,7 @@ dependencies {
     jrubyExec <span class="string"><span class="delimiter">'</span><span class="content">rubygems:credit_card_validator:1.2.0</span><span class="delimiter">'</span></span>
 }
 
-task runMyScript( <span class="key">type</span>: JRubyExec ) {
+task runMyScript(<span class="key">type</span>: JRubyExec) {
     script <span class="string"><span class="delimiter">'</span><span class="content">scripts/runme.rb</span><span class="delimiter">'</span></span>
     scriptArgs <span class="string"><span class="delimiter">'</span><span class="content">-x</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">-y</span><span class="delimiter">'</span></span>
 }</code></pre>
@@ -198,8 +199,10 @@ uses it&#8217;s own work directory. Use this to set a common work directory for 
 </ul>
 </div>
 <div class="paragraph">
-<p>(*) If <code>jRubyVersion</code> has not been set, <code>jrubyExec</code> will used as
-configuration. However, if <code>jRubyVersion</code> has been set, no gems will be used unless an explicit configuration has been provided</p>
+<p>(*) If <code>jrubyVersion</code> has not been set, <code>jrubyExec</code> will used as configuration.
+However, if <code>jrubyVersion</code> has been set, a configuration must also be provded
+to maintain dependency isolation, see
+<a href="http://jruby-gradle.org/errors/jrubyexec-version-conflict/">this page</a> for more details.</p>
 </div>
 <div class="paragraph">
 <p>Additional <code>JRubyExec</code> methods for controlling the JVM instance</p>
@@ -244,7 +247,11 @@ configuration. However, if <code>jRubyVersion</code> has been set, no gems will 
 <div class="sect3">
 <h4 id="jrubyexec-extension"><a class="anchor" href="#jrubyexec-extension"></a>jrubyexec extension</h4>
 <div class="paragraph">
-<p>Similar to <code>javaexec</code> and <code>exec</code> it is possible to add the execution of a jruby script within another task</p>
+<p>Similar to
+<a href="https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:javaexec(groovy.lang.Closure)">javaexec</a>
+and
+<a href="https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:exec(org.gradle.api.Action)">exec</a>
+it is possible to add the execution of a JRuby script to another task:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
@@ -294,8 +301,7 @@ All other methods should work.</p>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="gradle">task rake( type : JRubyExec ) {
-    jrubyArgs '-S'
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">task rake(type : JRubyExec) {
     script 'rake'
     scriptArgs '/path/to/Rakefile', 'target1', 'target2'
 }</code></pre>
@@ -335,7 +341,7 @@ All other methods should work.</p>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">import com.github.jrubygradle.JRubyPrepare
 
-task unpackMyGems( type : JRubyPrepare ) {
+task unpackMyGems(type : JRubyPrepare) {
 
   // Parent directory for unpacking GEMs.
   // Gems will end up in a subdirectory 'gems/GemName-GemVersion'

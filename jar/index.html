@@ -1,0 +1,195 @@
+<html>
+<head>
+<link href='/stylesheets/foundation.css' rel='stylesheet'>
+<link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
+<link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
+<title>
+Jar plugin
+</title>
+</head>
+<body>
+<a href='https://github.com/jruby-gradle'>
+<img alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' src='https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67' style='position: absolute; top: 0; right: 0; border: 0;'>
+</a>
+<div id='main_nav'>
+<ul>
+<li>
+<a href='/'>
+Home
+</a>
+</li>
+<li>
+<a href='/docs/'>
+Documentation
+</a>
+</li>
+<li>
+<a href='/community/'>
+Community
+</a>
+</li>
+<li>
+<a href='/news/'>
+News
+</a>
+</li>
+<li>
+<a href='/download/'>
+Download
+</a>
+</li>
+<li>
+<a href='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin'>
+<img src='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master'>
+</a>
+</li>
+</ul>
+</div>
+<div id='content'>
+<h1>
+Jar plugin
+</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://travis-ci.org/jruby-gradle/jruby-gradle-plugin"><img src="https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master" alt="Build Status"></a>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://bintray.com/jruby-gradle/plugins/jruby-gradle-jar-plugin/_latestVersion"><img src="https://api.bintray.com/packages/jruby-gradle/plugins/jruby-gradle-jar-plugin/images/download.svg" alt="download"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started"><a class="anchor" href="#getting-started"></a>Getting Started</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="compatibility"><a class="anchor" href="#compatibility"></a>Compatibility</h3>
+<div class="paragraph">
+<p>This plugin requires <a href=":http://gradle.org">Gradle</a> 2.0 or better</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing"><a class="anchor" href="#installing"></a>Installing</h3>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="groovy">buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        <span class="comment">/* check jruby-gradle.org for the latest release */</span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-jar-plugin:1.0.0</span><span class="delimiter">&quot;</span></span>
+    }
+}
+
+apply <span class="key">plugin</span>: <span class="string"><span class="delimiter">'</span><span class="content">com.github.jruby-gradle.jar</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implicitly-loaded-plugins"><a class="anchor" href="#implicitly-loaded-plugins"></a>Implicitly loaded plugins</h4>
+<div class="paragraph">
+<p>Currently, the <code>jar</code> plugin only depends on the <a href="/base/">base</a> plugin of the
+same version as the jar plugin and the <code>java-base</code> plugin included with your
+version of Gradle.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tasks"><a class="anchor" href="#tasks"></a>Tasks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="jrubyjar"><a class="anchor" href="#jrubyjar"></a>JRubyJar</h3>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
+    // Use the default GEM installation directory
+    defaultGems()
+
+    // Add this GEM installation directory to the JAR.
+    // Can be called more than once for additional directories
+    gemDir '/path/to/my/gemDir'
+
+    // Equivalent to calling defaultGems()
+    defaults 'gem'
+
+    // All methods and properties from `Jar`
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="types-of-jars"><a class="anchor" href="#types-of-jars"></a>Types of jars</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#library">Library Jars</a></p>
+</li>
+<li>
+<p><a href="#runnable">Runnable Jars</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runnable"><a class="anchor" href="#runnable"></a>Runnable Jars</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
+    // tell the plugin to pack a runnable jar
+    initScript runnable()
+
+    // Use the default bootstrap class (can be omitted)
+    defaultMainClass()
+
+    // Includes the default gems to the jar (can be omitted)
+    defaultGems()
+
+    // Make the JAR executable by supplying your own main class
+    mainClass 'my.own.main'
+
+    // Equivalent to calling defaultMainClass() and defaultGems()
+    defaults 'gems', 'mainClass'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="library"><a class="anchor" href="#library"></a>Library Jars</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A library jar isn&#8217;t really much more than a container which includes the
+configured gems and jar dependencies inside of the packaged <code>.jar</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
+    // tell the plugin to pack a runnable jar (no bootstrap script)
+    initScript library()
+
+    // Includes the default gems to the jar (can be omitted)
+    defaultGems()
+
+    // Equivalent to calling defaultGems()
+    defaults 'gems'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</body>
+</html>

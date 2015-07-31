@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href='stylesheets/foundation.css' rel='stylesheet'>
-<link href='stylesheets/jrubygradle.css' rel='stylesheet'>
+<link href='/stylesheets/foundation.css' rel='stylesheet'>
+<link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
 <link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
 <title>
 JRuby/Gradle
@@ -14,27 +14,27 @@ JRuby/Gradle
 <div id='main_nav'>
 <ul>
 <li>
-<a href='index.html'>
+<a href='/'>
 Home
 </a>
 </li>
 <li>
-<a href='docs.html'>
+<a href='/docs/'>
 Documentation
 </a>
 </li>
 <li>
-<a href='community.html'>
+<a href='/community/'>
 Community
 </a>
 </li>
 <li>
-<a href='news.html'>
+<a href='/news/'>
 News
 </a>
 </li>
 <li>
-<a href='download.html'>
+<a href='/download/'>
 Download
 </a>
 </li>
@@ -70,16 +70,16 @@ Ruby and Java developers alike.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="base.html">Base</a></p>
+<p><a href="base/">Base</a></p>
 </li>
 <li>
-<p><a href="jar.html">Jar</a></p>
+<p><a href="jar/">Jar</a></p>
 </li>
 <li>
-<p><a href="war.html">War</a></p>
+<p><a href="war/">War</a></p>
 </li>
 <li>
-<p><a href="storm.html">Storm</a></p>
+<p><a href="storm/">Storm</a></p>
 </li>
 </ul>
 </div>
@@ -147,19 +147,17 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: &quot;com.github.jruby-gradle.jar&quot;
 
 dependencies {
-    /* Using the built-in `gems` configuration to describe the
+    /* Using the built-in `jrubyJar` configuration to describe the
      * dependencies our jrubyJar task will need, so the gem is properly
      * included in the resulting .jar file
      */
-    gems &quot;rubygems:colorize:0.7.7+&quot;
+    jrubyJar &quot;rubygems:colorize:0.7.7+&quot;
 }
 
 jrubyJar {
     /* We want to use this Ruby script as our start point when the jar executes
      */
     initScript &quot;${projectDir}/entrypoint.rb&quot;
-    /* make sure we use our gems from the default &quot;gems&quot; configuration! */
-    defaultGems()
 }</code></pre>
 </div>
 </div>
