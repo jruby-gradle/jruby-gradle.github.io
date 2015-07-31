@@ -65,7 +65,7 @@ snippets below to incorporate the latest plugins into your own <a href=":http://
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
-    jcenter()
+    repositories { jcenter() }
 
     dependencies {
         classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:1.0.0&quot;
@@ -83,7 +83,7 @@ apply plugin: &quot;com.github.jruby-gradle.base&quot;</code></pre>
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
-    jcenter()
+    repositories { jcenter() }
 
     dependencies {
         classpath &quot;com.github.jruby-gradle:jruby-gradle-jar-plugin:1.0.0&quot;
@@ -101,7 +101,7 @@ apply plugin: &quot;com.github.jruby-gradle.jar&quot;</code></pre>
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
-    jcenter()
+    repositories { jcenter() }
 
     dependencies {
         classpath &quot;com.github.jruby-gradle:jruby-gradle-war-plugin:1.0.0&quot;
@@ -119,7 +119,7 @@ apply plugin: &quot;com.github.jruby-gradle.war&quot;</code></pre>
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
-    jcenter()
+    repositories { jcenter() }
 
     dependencies {
         classpath &quot;com.github.jruby-gradle:jruby-gradle-storm-plugin:0.1.6&quot;
