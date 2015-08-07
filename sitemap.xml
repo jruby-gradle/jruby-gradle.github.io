@@ -48,6 +48,12 @@
 <changefreq>never</changefreq>
 </url>
 <url>
+<loc>http://jruby-gradle.org/errors/jrubyjar-version-conflict/</loc>
+<lastmod>2015-08-07</lastmod>
+<priority>0.1</priority>
+<changefreq>never</changefreq>
+</url>
+<url>
 <loc>http://jruby-gradle.org/examples/basic-topology.gradle</loc>
 <lastmod>2015-08-07</lastmod>
 <priority>0.1</priority>
@@ -86,12 +92,6 @@
 <url>
 <loc>http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/</loc>
 <lastmod>2015-08-04</lastmod>
-<priority>0.1</priority>
-<changefreq>never</changefreq>
-</url>
-<url>
-<loc>http://jruby-gradle.org/news/2015/08/05/jrubyconfeu-presentation/</loc>
-<lastmod>2015-08-05</lastmod>
 <priority>0.1</priority>
 <changefreq>never</changefreq>
 </url>

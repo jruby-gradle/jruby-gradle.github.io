@@ -1,22 +1,9 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-08-04T04:53:54-07:00</updated>
+<updated>2015-08-06T11:08:31-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
-<entry>
-<id>http://jruby-gradle.org/news/2015/08/05/jrubyconfeu-presentation/</id>
-<title>{&quot;Presentation&quot;=&gt;&quot;JRuby/Gradle at JRubyConf EU 2015&quot;}</title>
-<updated>2015-08-04T04:53:54-07:00</updated>
-<published>2015-08-05T00:00:00+00:00</published>
-<link href='http://jruby-gradle.org/news/2015/08/05/jrubyconfeu-presentation/' rel='alternate' type='text/html'>
-<summary>
-...
-</summary>
-<content type='html'>
-
-</content>
-</entry>
 <entry>
 <id>http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/</id>
 <title>JRuby/Gradle 1.0 Announced</title>
