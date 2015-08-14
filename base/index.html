@@ -103,8 +103,22 @@ apply <span class="key">plugin</span>: <span class="string"><span class="delimit
     gems <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">rubygems</span><span class="delimiter">'</span></span>, <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span>, <span class="key">version</span>: <span class="string"><span class="delimiter">'</span><span class="content">1.4.5</span><span class="delimiter">'</span></span>
     <span class="comment">/* alternatively */</span>
     gems <span class="string"><span class="delimiter">'</span><span class="content">rubygems:rake:10.3.+</span><span class="delimiter">'</span></span>
+    <span class="comment">/* prereleased gems needs to pick a specific version */</span>
+    gems <span class="string"><span class="delimiter">'</span><span class="content">rubygems:rails:4.2.3.rc1</span><span class="delimiter">'</span></span>
 }</code></pre>
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Prereleased gems can only be a specific version due to limitations of mapping a rubygems repository to a maven repository.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
