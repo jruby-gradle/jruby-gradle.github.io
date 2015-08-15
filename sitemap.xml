@@ -30,6 +30,12 @@
 <changefreq>never</changefreq>
 </url>
 <url>
+<loc>http://jruby-gradle.org/docs.iml</loc>
+<lastmod>2015-08-14</lastmod>
+<priority>0.1</priority>
+<changefreq>never</changefreq>
+</url>
+<url>
 <loc>http://jruby-gradle.org/download/</loc>
 <lastmod>2015-08-14</lastmod>
 <priority>0.1</priority>
