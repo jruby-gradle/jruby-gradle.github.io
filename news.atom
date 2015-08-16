@@ -1,9 +1,73 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-08-06T11:08:31-07:00</updated>
+<updated>2015-08-16T15:28:41-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
+<entry>
+<id>http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/</id>
+<title>JRuby/Gradle at JRubyConf EU 2015</title>
+<updated>2015-08-16T15:28:41-07:00</updated>
+<published>2015-08-16T00:00:00+00:00</published>
+<link href='http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/' rel='alternate' type='text/html'>
+<summary>
+
+A couple weeks ago, Schalk,
+Christian and
+I were fortunate enough to participate in the
+wonderful JRubyConf EU 2015 in Potsdam Germany.
+In the days that preceeded the conference we pulled together and finished up
+what would become the 1.0
+release of the core plugins. Just in time for my presentation to introduce the
+JRuby/Gradle toolchain to the audience.
+
+
+Below is a video recoded by Confreaks.tv of the talk
+titled JRuby/Gradle: Bringing Java Powertools to Ruby:
+
+
+
+The other sessions are also
+worth checking out as there was a lot of great, in-depth, technical content
+presented at the single-track one-day conference.
+
+
+On behalf of the
+JRuby/Gradle core
+team, I&#8217;d like to thank the conference organizers (especially
+Tobi)...
+</summary>
+<content type='html'>
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A couple weeks ago, &lt;a href=&quot;https://github.com/ysb33r&quot;&gt;Schalk&lt;/a&gt;,
+&lt;a href=&quot;https://github.com/mkristian&quot;&gt;Christian&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/rtyler&quot;&gt;I&lt;/a&gt; were fortunate enough to participate in the
+wonderful &lt;a href=&quot;http://2015.jrubyconf.eu&quot;&gt;JRubyConf EU 2015&lt;/a&gt; in Potsdam Germany.
+In the days that preceeded the conference we pulled together and finished up
+what would become the &lt;a href=&quot;http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/&quot;&gt;1.0
+release&lt;/a&gt; of the core plugins. Just in time for my presentation to introduce the
+JRuby/Gradle toolchain to the audience.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Below is a video recoded by &lt;a href=&quot;http://confreaks.tv&quot;&gt;Confreaks.tv&lt;/a&gt; of the talk
+titled &lt;strong&gt;JRuby/Gradle: Bringing Java Powertools to Ruby&lt;/strong&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;center&gt;&lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/kZt6Ga20lD0&quot; width=&quot;560&quot;&gt;&lt;/iframe&gt;&lt;/center&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;http://confreaks.tv/events/jrubyconf2015&quot;&gt;other sessions&lt;/a&gt; are also
+worth checking out as there was a lot of great, in-depth, technical content
+presented at the single-track one-day conference.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On behalf of the
+&lt;a href=&quot;https://www.flickr.com/photos/agentdero/20372579815/&quot;&gt;JRuby/Gradle core
+team&lt;/a&gt;, I’d like to thank the conference organizers (especially
+&lt;a href=&quot;https://github.com/pragtob&quot;&gt;Tobi&lt;/a&gt;) for hosting such a wonderful event and
+allowing us the opportunity to participate. Hopefully we’ll be back next year
+with more to talk about!&lt;/p&gt;
+&lt;/div&gt;
+</content>
+</entry>
 <entry>
 <id>http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/</id>
 <title>JRuby/Gradle 1.0 Announced</title>
