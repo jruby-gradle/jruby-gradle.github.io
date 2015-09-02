@@ -4,7 +4,7 @@
 <link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
 <link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
 <title>
-JRuby/Gradle News
+Gradle Feature Spotlight: Continuous Build
 </title>
 </head>
 <body>
@@ -47,16 +47,8 @@ Download
 </div>
 <div id='content'>
 <h1>
-JRuby/Gradle News
+Gradle Feature Spotlight: Continuous Build
 </h1>
-<div class='post'>
-<h1>
-<a href='/news/2015/09/01/using-newer-gradle-features/'>Gradle Feature Spotlight: Continuous Build</a>
-</h1>
-<strong>
-01 September 2015
-</strong>
-<div class='content'>
 <div class="paragraph">
 <p>Earlier this year the <a href="http://gradle.org">Gradle</a> project released version
 <a href="https://docs.gradle.org/2.5/release-notes">2.5</a> with a heap of new features
@@ -206,132 +198,6 @@ functionality as Gradle continues to improve!</p>
 <p>Continuous build is one of many examples of powerful Gradle functionality which
 can easily used in JRuby/Gradle, I hope you find it useful!</p>
 </div>
-</div>
-</div>
-<div class='post'>
-<h1>
-<a href='/news/2015/08/16/introduction-at-jrubyconfeu/'>JRuby/Gradle at JRubyConf EU 2015</a>
-</h1>
-<strong>
-16 August 2015
-</strong>
-<div class='content'>
-<div class="paragraph">
-<p>A couple weeks ago, <a href="https://github.com/ysb33r">Schalk</a>,
-<a href="https://github.com/mkristian">Christian</a> and
-<a href="https://github.com/rtyler">I</a> were fortunate enough to participate in the
-wonderful <a href="http://2015.jrubyconf.eu">JRubyConf EU 2015</a> in Potsdam Germany.
-In the days that preceeded the conference we pulled together and finished up
-what would become the <a href="/news/2015/08/04/jrubygradle-one-point-oh/">1.0
-release</a> of the core plugins. Just in time for my presentation to introduce the
-JRuby/Gradle toolchain to the audience.</p>
-</div>
-<div class="paragraph">
-<p>Below is a video recoded by <a href="http://confreaks.tv">Confreaks.tv</a> of the talk
-titled <strong>JRuby/Gradle: Bringing Java Powertools to Ruby</strong>:</p>
-</div>
-<center><iframe width="560" height="315" src="https://www.youtube.com/embed/kZt6Ga20lD0" frameborder="0" allowfullscreen></iframe></center>
-<div class="paragraph">
-<p>The <a href="http://confreaks.tv/events/jrubyconf2015">other sessions</a> are also
-worth checking out as there was a lot of great, in-depth, technical content
-presented at the single-track one-day conference.</p>
-</div>
-<div class="paragraph">
-<p>On behalf of the
-<a href="https://www.flickr.com/photos/agentdero/20372579815/">JRuby/Gradle core
-team</a>, I&#8217;d like to thank the conference organizers (especially
-<a href="https://github.com/pragtob">Tobi</a>) for hosting such a wonderful event and
-allowing us the opportunity to participate. Hopefully we&#8217;ll be back next year
-with more to talk about!</p>
-</div>
-</div>
-</div>
-<div class='post'>
-<h1>
-<a href='/news/2015/08/04/jrubygradle-one-point-oh/'>JRuby/Gradle 1.0 Announced</a>
-</h1>
-<strong>
-04 August 2015
-</strong>
-<div class='content'>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Less than one year after the <a href="http://github.com/jruby-gradle">JRuby/Gradle</a>
-project was founded, we are pleased to announce the release of <strong>1.0</strong> for the
-core plugins, which includes <a href="/base/">the base plugin</a>, <a href="/jar/">the jar
-plugin</a> and an alpha version of the <a href="/war/">war plugin</a>. This release marks
-the stability of the core task and configuration APIs for the lifetime of the
-<code>1.x</code> branch of development.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="notable-features"><a class="anchor" href="#notable-features"></a>Notable Features</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This release includes a number of notable features which can help developers
-build high quality Ruby projects, based on <a href="http://jruby.org">JRuby</a>.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Defaulted to the major milestone release: <a href="jruby.org/2015/07/22/jruby-9-0-0-0.html">JRuby 9.0.0.0</a></p>
-</li>
-<li>
-<p>Native Java dependency resolution via Gradle&#8217;s built-in support of Maven
-repositories and with Gem dependency resolution via a
-<a href="http://rubygems.org">rubygems.org</a> <a href="http://rubygems.lasagna.io/proxy/maven/releases">proxy</a>.</p>
-</li>
-<li>
-<p>Execution of local Ruby script via the <a href="/base/#jrubyexec">JRubyExec task</a></p>
-</li>
-<li>
-<p>Execution of scripts provided by a gem dependency, e.g. <code>rspec</code> via
-<a href="/base/#jrubyexec">JRubyExec task</a></p>
-</li>
-<li>
-<p>Support for distinct
-<a href="https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html">configurations</a>
-to isolate dependencies, even JRuby versions, between <a href="/base/#jrubyexec">JRubyExec tasks</a>.</p>
-</li>
-<li>
-<p>Similar support for different configurations between <a href="/jar/#jrubyjar">JRubyJar
-tasks</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-history"><a class="anchor" href="#project-history"></a>Project History</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The JRuby/Gradle project was originally started to address the challenges faced
-when attempting to build complex Ruby applications based on
-<a href="http://jruby.org">JRuby</a>. With such applications it is desirable to leverage
-the vast libraries available to JVM-based languages, as well as many of the
-user-friendly gems built by Ruby developers</p>
-</div>
-<div class="paragraph">
-<p>After trying to make multiple tools, which weren&#8217;t designed to support non-Java
-projects, work with Ruby <a href="https://github.com/rtyler">R. Tyler Croy</a> started
-building a prototype with Gradle to package up a JRuby application as a jar.
-Shortly after publishing the prototype, <a href="https://github.com/ysb33r">Schalke
-W. Cronje</a> discovered the fledgling project and with his Gradle development
-experience helped bring it from a weekend hack project to a well-tested,
-well-structured set of Gradle plugins. Eventually
-<a href="https://github.com/mkristian">Christian Meier</a>, whose
-link:https://github.com/torquebox/rubygems-servlets] code helped make the
-project originally possible, joined the team to help improve support in JRuby
-itself for the different embedded operating modes that the JRuby/Gradle
-toolchain makes use of.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
 </div>
 <hr>
 </body>

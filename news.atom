@@ -1,13 +1,193 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-08-16T15:28:41-07:00</updated>
+<updated>2015-09-01T18:33:14-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
 <entry>
+<id>http://jruby-gradle.org/news/2015/09/01/using-newer-gradle-features/</id>
+<title>Gradle Feature Spotlight: Continuous Build</title>
+<updated>2015-09-01T18:33:14-07:00</updated>
+<published>2015-09-01T00:00:00+00:00</published>
+<link href='http://jruby-gradle.org/news/2015/09/01/using-newer-gradle-features/' rel='alternate' type='text/html'>
+<summary>
+
+Earlier this year the Gradle project released version
+2.5 with a heap of new features
+and improvements. One of the most touted of those features is an incubating
+feature (read: beta) named
+Continuous
+Build which automatically re-executes tasks after a file change. Rubyists may
+recognize that this functionality is similar to what
+the guard gem provides.
+
+
+What makes "continuous build" special is that it makes use of the existing
+build data present in your Gradle build. Using a
+task&#8217;s
+inputs the continuous build feature can automatically "watch" the appropriate
+files to re-execute your task, or your tasks dependent tasks, automatically as
+they change!
+
+
+For users JRuby/Gradle this means that upgrading to Gradle 2.5 or...
+</summary>
+<content type='html'>
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Earlier this year the &lt;a href=&quot;http://gradle.org&quot;&gt;Gradle&lt;/a&gt; project released version
+&lt;a href=&quot;https://docs.gradle.org/2.5/release-notes&quot;&gt;2.5&lt;/a&gt; with a heap of new features
+and improvements. One of the most touted of those features is an incubating
+feature (read: beta) named
+&lt;a href=&quot;https://docs.gradle.org/current/userguide/continuous_build.html&quot;&gt;Continuous
+Build&lt;/a&gt; which automatically re-executes tasks after a file change. Rubyists may
+recognize that this functionality is similar to what
+&lt;a href=&quot;http://guardgem.org/&quot;&gt;the guard gem&lt;/a&gt; provides.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What makes &quot;continuous build&quot; special is that it makes use of the &lt;em&gt;existing&lt;/em&gt;
+build data present in your Gradle build. Using a
+&lt;a href=&quot;https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:task_inputs_outputs&quot;&gt;task’s
+inputs&lt;/a&gt; the continuous build feature can automatically &quot;watch&quot; the appropriate
+files to re-execute your task, or your tasks dependent tasks, automatically as
+they change!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For users JRuby/Gradle this means that upgrading to Gradle 2.5 or later, and
+ensuring your &lt;code&gt;build.gradle&lt;/code&gt; declares task inputs and continuous build will
+&quot;just work!&quot; Consider the following example for running
+&lt;a href=&quot;http://rspec.info&quot;&gt;RSpec&lt;/a&gt; tests:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.gradle&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;CodeRay highlight nowrap&quot;&gt;&lt;code data-lang=&quot;gradle&quot;&gt;buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:1.0.3&quot; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+    }
+}
+apply plugin: 'com.github.jruby-gradle.base' &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+
+dependencies {
+    jrubyExec 'rubygems:rspec:3.3.0' &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+}
+
+import com.github.jrubygradle.JRubyExec
+
+task spec(type: JRubyExec) {
+    group 'JRuby'
+    description 'Execute the RSpecs in JRuby'
+    script 'rspec'
+    inputs.source fileTree('spec').include('**/*.rb'), fileTree('lib').include('**/*.rb') &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Specify our dependency on the JRuby/Gradle &lt;a href=&quot;http://jruby-gradle.org/base/&quot;&gt;base plugin&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Apply the plugin to our current project&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Define our RSpec gem dependency&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Set our task inputs to the &lt;code&gt;.rb&lt;/code&gt; files in &lt;code&gt;spec/&lt;/code&gt; and in &lt;code&gt;lib/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Using the &lt;code&gt;build.gradle&lt;/code&gt; above, I can auto-execute my tests whenever a Ruby file
+inside of the &lt;code&gt;spec/&lt;/code&gt; (my tests) or &lt;code&gt;lib/&lt;/code&gt; (my code under test) with the
+following command:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;nowrap&quot;&gt;% ./gradlew -t spec&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here’s some example output from my example project:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;nowrap&quot;&gt;example-project git:(master) % ./gradlew -t spec
+Continuous build is an incubating feature.
+:spec
+
+Randomized with seed 37453
+..............................................
+
+Finished in 0.52 seconds (files took 3.82 seconds to load)
+46 examples, 0 failures
+
+Randomized with seed 37453
+
+
+BUILD SUCCESSFUL
+
+Total time: 8.77 secs
+
+Waiting for changes to input files of tasks... (ctrl-d to exit)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;At this point the Gradle process is patiently waiting until I write my most
+recent changes, then it kicks off the same task:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;nowrap&quot;&gt;Change detected, executing build...
+
+:spec
+
+Randomized with seed 64935
+..............................................
+
+Finished in 0.502 seconds (files took 3.5 seconds to load)
+46 examples, 0 failures
+
+Randomized with seed 64935
+
+
+BUILD SUCCESSFUL
+
+Total time: 7.341 secs
+
+Waiting for changes to input files of tasks... (ctrl-d to exit)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pretty neat huh?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What makes this functionality exceptionally powerful for JRuby/Gradle users is
+that it respects the task inputs but also the task dependency graph. If my &lt;code&gt;spec&lt;/code&gt;
+task declares a dependency on the &lt;code&gt;compileJava&lt;/code&gt; task, whenever my Java source
+code changes, that will trigger a re-execution of &lt;code&gt;compileJava&lt;/code&gt; and in turn
+&lt;code&gt;spec&lt;/code&gt;!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So when you’re authoring tasks, even if you’re not this feature right now, be
+sure to declare task inputs. That build metadata can unlock lots of interesting
+functionality as Gradle continues to improve!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Continuous build is one of many examples of powerful Gradle functionality which
+can easily used in JRuby/Gradle, I hope you find it useful!&lt;/p&gt;
+&lt;/div&gt;
+</content>
+</entry>
+<entry>
 <id>http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/</id>
 <title>JRuby/Gradle at JRubyConf EU 2015</title>
-<updated>2015-08-16T15:28:41-07:00</updated>
+<updated>2015-09-01T18:30:49-07:00</updated>
 <published>2015-08-16T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/' rel='alternate' type='text/html'>
 <summary>
