@@ -5,11 +5,11 @@
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
 <entry>
-<id>http://jruby-gradle.org/news/2015/09/01/using-newer-gradle-features/</id>
+<id>http://jruby-gradle.org/news/2015/09/01/gradle-spotlight-continuous-build/</id>
 <title>Gradle Feature Spotlight: Continuous Build</title>
 <updated>2015-09-01T18:33:14-07:00</updated>
 <published>2015-09-01T00:00:00+00:00</published>
-<link href='http://jruby-gradle.org/news/2015/09/01/using-newer-gradle-features/' rel='alternate' type='text/html'>
+<link href='http://jruby-gradle.org/news/2015/09/01/gradle-spotlight-continuous-build/' rel='alternate' type='text/html'>
 <summary>
 
 Earlier this year the Gradle project released version
