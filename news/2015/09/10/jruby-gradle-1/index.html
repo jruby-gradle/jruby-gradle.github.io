@@ -1,0 +1,138 @@
+<html>
+<head>
+<link href='/stylesheets/foundation.css' rel='stylesheet'>
+<link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
+<link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
+<title>
+v1.0.4 and a few squashed bugs
+</title>
+</head>
+<body>
+<a href='https://github.com/jruby-gradle'>
+<img alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' src='https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67' style='position: absolute; top: 0; right: 0; border: 0;'>
+</a>
+<div id='main_nav'>
+<ul>
+<li>
+<a href='/'>
+Home
+</a>
+</li>
+<li>
+<a href='/docs/'>
+Documentation
+</a>
+</li>
+<li>
+<a href='/community/'>
+Community
+</a>
+</li>
+<li>
+<a href='/news/'>
+News
+</a>
+</li>
+<li>
+<a href='/download/'>
+Download
+</a>
+</li>
+<li>
+<a href='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin'>
+<img src='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master'>
+</a>
+</li>
+<li>
+<a href='https://bintray.com/jruby-gradle/plugins'>
+<img src='https://api.bintray.com/packages/jruby-gradle/plugins/jruby-gradle-plugin/images/download.svg'>
+</a>
+</li>
+</ul>
+</div>
+<div id='content'>
+<h1>
+v1.0.4 and a few squashed bugs
+</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve just released a minor bug fix release of the
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/tree/release-1.0.x">1.0.x
+branch</a> of the JRuby/Gradle core plugins. We wanted to get a few bug fixes out
+to users before we release
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/milestones/1.1.0%20-%20Dresden">1.1.0
+- Dresden</a>, a release which contains some great new features which are still
+baking in the oven.</p>
+</div>
+<div class="paragraph">
+<p>Upgrading to this release is as easy as editing your <code>build.gradle</code> files:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:1.0.4&quot;
+    }
+}
+apply plugin: 'com.github.jruby-gradle.base'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The full diff from
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/compare/v1.0.3&#8230;&#8203;v1.0.4">1.0.3
+to 1.0.4 can be found here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="improvements"><a class="anchor" href="#improvements"></a>Improvements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/211">#211</a>:
+Upgrade to use JRuby <a href="http://jruby.org/2015/09/02/jruby-9-0-1-0.html">9.0.1.0</a>
+by default</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/193">#193</a>:
+Avoid packing a redundant copy of
+<a href="https://github.com/jruby/jruby-mains">jruby-mains</a> inside packed jars</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bug-fixes"><a class="anchor" href="#bug-fixes"></a>Bug fixes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/190">#190</a>: generated
+gradle.rb needs to follow the jars/gems setup we have everywhere else</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/213">#213</a>:
+cannot resolve gems with <code>~&gt; 0.10.4.0</code> to <code>0.10.4</code> the way bundler does</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-storm-plugin/issues/21">jruby-gradle-storm-plugin#21</a>:
+enable easier subclassing of <code>JRubyJar</code> so subclasses can override
+properties cleanly.</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/220">#220</a>:
+prepareJRubyJar doesn&#8217;t cache results and reinstalls gems every single run</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</body>
+</html>

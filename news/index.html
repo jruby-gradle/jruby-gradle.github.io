@@ -56,6 +56,94 @@ JRuby/Gradle News
 </h1>
 <div class='post'>
 <h1>
+<a href='/news/2015/09/10/jruby-gradle-1/'>v1.0.4 and a few squashed bugs</a>
+</h1>
+<strong>
+10 September 2015
+</strong>
+<div class='content'>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve just released a minor bug fix release of the
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/tree/release-1.0.x">1.0.x
+branch</a> of the JRuby/Gradle core plugins. We wanted to get a few bug fixes out
+to users before we release
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/milestones/1.1.0%20-%20Dresden">1.1.0
+- Dresden</a>, a release which contains some great new features which are still
+baking in the oven.</p>
+</div>
+<div class="paragraph">
+<p>Upgrading to this release is as easy as editing your <code>build.gradle</code> files:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:1.0.4&quot;
+    }
+}
+apply plugin: 'com.github.jruby-gradle.base'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The full diff from
+<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/compare/v1.0.3&#8230;&#8203;v1.0.4">1.0.3
+to 1.0.4 can be found here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="improvements"><a class="anchor" href="#improvements"></a>Improvements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/211">#211</a>:
+Upgrade to use JRuby <a href="http://jruby.org/2015/09/02/jruby-9-0-1-0.html">9.0.1.0</a>
+by default</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/193">#193</a>:
+Avoid packing a redundant copy of
+<a href="https://github.com/jruby/jruby-mains">jruby-mains</a> inside packed jars</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bug-fixes"><a class="anchor" href="#bug-fixes"></a>Bug fixes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/190">#190</a>: generated
+gradle.rb needs to follow the jars/gems setup we have everywhere else</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/213">#213</a>:
+cannot resolve gems with <code>~&gt; 0.10.4.0</code> to <code>0.10.4</code> the way bundler does</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-storm-plugin/issues/21">jruby-gradle-storm-plugin#21</a>:
+enable easier subclassing of <code>JRubyJar</code> so subclasses can override
+properties cleanly.</p>
+</li>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/220">#220</a>:
+prepareJRubyJar doesn&#8217;t cache results and reinstalls gems every single run</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='post'>
+<h1>
 <a href='/news/2015/09/01/gradle-spotlight-continuous-build/'>Gradle Feature Spotlight: Continuous Build</a>
 </h1>
 <strong>
