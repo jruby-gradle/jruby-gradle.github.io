@@ -378,18 +378,45 @@ task unpackMyGems(type : JRubyPrepare) {
 <h2 id="advanced-usage"><a class="anchor" href="#advanced-usage"></a>Advanced Usage</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="using-the-built-in-gem-proxy"><a class="anchor" href="#using-the-built-in-gem-proxy"></a>Using the built-in Gem proxy</h3>
+<div class="paragraph">
+<p>As of version 1.1.0, the JRuby/Gradle base plugin supports embedding a
+<a href="https://github.com/torquebox/rubygems-servlets">rubygems-servlets</a> process
+<strong>inside</strong> the Gradle process itself. This obviates the need for a third-party
+proxy to present the Maven-compatible dependency information that JRuby/Gradle
+relies on.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: 'com.github.jruby-gradle.base'
+
+/* Disable our default repositories */
+jruby.defaultRepositories false
+
+repositories {
+    rubygems('https://rubygems.org')
+}
+
+dependencies {
+    gems 'rubygems:sinatra:1.4.5'
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="using-a-custom-gem-repository"><a class="anchor" href="#using-a-custom-gem-repository"></a>Using a custom Gem repository</h3>
 <div class="paragraph">
 <p>By default the jruby plugin will use
-[rubygems-proxy.torquebox.org](<a href="http://rubygems-proxy.torquebox.org" class="bare">http://rubygems-proxy.torquebox.org</a>) as its
-source of Ruby gems. This is a server operated by the Torquebox project which
-presents [rubygems.org](<a href="https://rubygems.org" class="bare">https://rubygems.org</a>) as a Maven repository.</p>
+<a href="http://rubygems.lasanga.io">rubygems.lasanga.io</a> as its source of Ruby
+gems. This is a server operated by <a href="https://github.com/rtyler">R. Tyler
+Croy</a> and it presents a Maven repository of the data from
+<a href="https://rubygems.org">rubygems.org</a>.</p>
 </div>
 <div class="paragraph">
-<p>If you <strong>do not</strong> wish to use this repository, you can run your own Maven
-proxy repository for either rubygems.org or your own gem repository by
-running the [rubygems-servlets](<a href="https://github.com/torquebox/rubygems-servlets" class="bare">https://github.com/torquebox/rubygems-servlets</a>)
-server.</p>
+<p>If you <strong>do not</strong> wish to use this repository, you can run your own Maven proxy
+repository for either rubygems.org or your own gem repository by running the
+<a href="https://github.com/torquebox/rubygems-servlets">rubygems-servlets</a> server.</p>
 </div>
 <div class="paragraph">
 <p>You can then use that custom Gem repository with:</p>
@@ -398,7 +425,7 @@ server.</p>
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">jruby {
-    defaultRepositories = false
+    defaultRepositories false
 }
 
 repositories {
@@ -406,7 +433,7 @@ repositories {
 }
 
 dependencies {
-    gems group: 'com.lookout', name: 'custom-gem', version: '1.0.+'
+    gems 'rubygems:my-custom-gem:1.0.1'
 }</code></pre>
 </div>
 </div>
