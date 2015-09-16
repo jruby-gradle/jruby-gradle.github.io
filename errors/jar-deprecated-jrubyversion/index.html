@@ -1,0 +1,138 @@
+<html>
+<head>
+<link href='/stylesheets/foundation.css' rel='stylesheet'>
+<link href='/stylesheets/jrubygradle.css' rel='stylesheet'>
+<link href='/news.atom' rel='alternate' title='JRuby/Gradle News' type='application/atom+xml'>
+<title>
+Deprecated version of JRuby for JRubyJar
+</title>
+</head>
+<body>
+<a href='https://github.com/jruby-gradle'>
+<img alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png' src='https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67' style='position: absolute; top: 0; right: 0; border: 0;'>
+</a>
+<div id='main_nav'>
+<ul>
+<li>
+<a href='/'>
+Home
+</a>
+</li>
+<li>
+<a href='/docs/'>
+Documentation
+</a>
+</li>
+<li>
+<a href='/community/'>
+Community
+</a>
+</li>
+<li>
+<a href='/news/'>
+News
+</a>
+</li>
+<li>
+<a href='/download/'>
+Download
+</a>
+</li>
+<li>
+<a href='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin'>
+<img src='https://travis-ci.org/jruby-gradle/jruby-gradle-plugin.svg?branch=master'>
+</a>
+</li>
+<li>
+<a href='https://bintray.com/jruby-gradle/plugins'>
+<img src='https://api.bintray.com/packages/jruby-gradle/plugins/jruby-gradle-plugin/images/download.svg'>
+</a>
+</li>
+</ul>
+</div>
+<div id='content'>
+<h1>
+Deprecated version of JRuby for JRubyJar
+</h1>
+<div class="sect1">
+<h2 id="what-s-going-on"><a class="anchor" href="#what-s-going-on"></a>What&#8217;s going on?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Starting with JRuby <a href="http://jruby.org/2015/05/05/jruby-1-7-20.html">1.7.20</a>
+there were substantial improvements introduced to JRuby core which make running
+JRuby in an "embedded" scenario more reliable. Packing a <code>JRubyJar</code> being a
+fairly typical "embedded JRuby" use-case, there is certain functionality that
+relies on these improvements.</p>
+</div>
+<div class="paragraph">
+<p>This does <strong>not</strong> mean older versions of JRuby won&#8217;t work in <code>JRubyJar</code>
+archives but rather: you are <em>likely</em> going to experience problems with a more
+complex use-case on an older JRuby. For example, Rails applications will not
+function properly if embedded in a <code>.jar</code> with JRuby 1.7.19.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-to-fix-it"><a class="anchor" href="#how-to-fix-it"></a>How to fix it</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since JRuby/Gradle 1.0 and later default to
+<a href="http://jruby.org/2015/07/22/jruby-9-0-0-0.html">9.0.0.0</a> and later, the
+easiest fix is to stop overriding the default (read: latest stable) JRuby
+version enummerated by the plugin.</p>
+</div>
+<div class="paragraph">
+<p>If the latest is viable for the project you&#8217;re working with, at least update
+the version to something later than
+<a href="http://jruby.org/2015/08/20/jruby-1-7-22.html">1.7.22</a> via:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">jruby {
+    defaultVersion '1.7.22'
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="okay-that-didn-t-work"><a class="anchor" href="#okay-that-didn-t-work"></a>Okay that didn&#8217;t work</h3>
+<div class="paragraph">
+<p>If for whatever reason you cannot upgrade your version of JRuby, you can try to
+disable the embedded behavior in the <code>JRubyJar</code> and switch Jar&#8217;s Main-Class to
+a "self-extracting" main provided by
+<a href="https://github.com/jruby/jruby-mains">jruby-mains</a>.</p>
+</div>
+<div class="paragraph">
+<p>This is <strong>untested as of this document&#8217;s writing</strong> but the basic idea is that
+instead of trying to execute the Ruby code from a fully embedded scenario, the
+self-extracting Main will first unzip the jar file into <code>/tmp</code> before setting
+up the JRuby environment.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
+    mainClass 'org.jruby.mains.ExtractingMain'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="links"><a class="anchor" href="#links"></a>Links</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jruby-gradle/jruby-gradle-plugin/issues/191">issue
+#191</a> outlines the feature request that led to this behavior being introduced</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</body>
+</html>
