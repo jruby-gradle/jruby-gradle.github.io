@@ -1,9 +1,166 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-09-10T16:55:14-07:00</updated>
+<updated>2015-09-18T13:21:38-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
+<entry>
+<id>http://jruby-gradle.org/news/2015/09/18/jruby-gradle-1-1/</id>
+<title>JRuby/Gradle 1.1 'Dresden' released</title>
+<updated>2015-09-18T13:21:38-07:00</updated>
+<published>2015-09-18T00:00:00+00:00</published>
+<link href='http://jruby-gradle.org/news/2015/09/18/jruby-gradle-1-1/' rel='alternate' type='text/html'>
+<summary>
+
+
+
+Since our major 1.0
+announcement at this past year&#8217;s JRubyConf EU
+we&#8217;ve had a pretty steady stream of improvements and bug fixes in a total
+of four patch releases (1.0.0 - 1.0.4), so we&#8217;re due for a big meaty
+feature release! The most impactful feature, sponsored in part by
+Lookout, Inc., is the support for dependency
+resolution without a 3rd party proxy.
+
+
+By default, JRuby/Gradle relies on a third party instance of the
+rubygems-servlets proxy
+which represents a Rubygem repository in a Maven-compatible format, allowing
+tools like Gradle or Maven to prepare a dependency graph using Ruby gems. With
+1.1, codenamed "Dresden", release
+we&#8217;ve embedded the proxy software directly into the Gradle...
+</summary>
+<content type='html'>
+&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since our &lt;a href=&quot;http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/&quot;&gt;major 1.0
+announcement&lt;/a&gt; at this past year’s &lt;a href=&quot;http://2015.jrubyconf.eu&quot;&gt;JRubyConf EU&lt;/a&gt;
+we’ve had a pretty steady stream of improvements and bug fixes in a total
+of four patch releases (1.0.0 - 1.0.4), so we’re due for a big meaty
+feature release! The most impactful feature, sponsored in part by
+&lt;a href=&quot;https://lookout.com&quot;&gt;Lookout, Inc.&lt;/a&gt;, is the support for &lt;strong&gt;dependency
+resolution without a 3rd party proxy.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default, JRuby/Gradle relies on a third party instance of the
+&lt;a href=&quot;https://github.com/torquebox/rubygems-servlets&quot;&gt;rubygems-servlets&lt;/a&gt; proxy
+which represents a Rubygem repository in a Maven-compatible format, allowing
+tools like Gradle or Maven to prepare a dependency graph using Ruby gems. With
+1.1, codenamed &quot;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dresden&quot;&gt;Dresden&lt;/a&gt;&quot;, release
+we’ve &lt;em&gt;embedded&lt;/em&gt; the proxy software directly into the Gradle process. With the
+&lt;code&gt;rubygems()&lt;/code&gt; function, users can use gem dependencies from
+&lt;strong&gt;any&lt;/strong&gt; repository, whether it’s a public repository like
+&lt;a href=&quot;https://rubygems.org&quot;&gt;rubygems.org&lt;/a&gt; or an internal Ruby gem repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Currently this behavior is &lt;strong&gt;defaulted to off&lt;/strong&gt; so users must explicitly
+enable it, e.g.:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.gradle&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;CodeRay highlight nowrap&quot;&gt;&lt;code data-lang=&quot;gradle&quot;&gt;/* add the latest jruby/gradle plugin */
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        /* allow Gradle to resolve anything between 1.1.2 and 1.2.0 (exclusive) */
+        classpath &quot;com.github.jruby-gradle:jruby-gradle-plugin:[1.1.2,1.2)&quot;
+    }
+}
+apply plugin: 'com.github.jruby-gradle.base'
+
+/* Disable the default repositories so we can add our own */
+jruby {
+    defaultRepositories false
+}
+
+repositories {
+    /* use our new rubygems() function to add a rubygems repo */
+    rubygems('https://rubygems.org')
+}
+
+dependncies {
+    gems 'rubygems:sinatra:1.4.5'
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock warning&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+In our beta testing of this feature, users on JDK7 may need to
+increase their available &quot;PermGen&quot; space for more complex projects via the
+&lt;code&gt;gradle.properties&lt;/code&gt; setting of: &lt;code&gt;org.gradle.jvmargs=&quot;-XX:MaxPermSize=512m&quot;&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once this functionality has been deemed stable, it will be enabled &lt;strong&gt;by
+default&lt;/strong&gt; so please try it out, and as per usual, please report any bugs to the
+&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues&quot;&gt;GitHub Issues&lt;/a&gt;
+page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;other-notable-features&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#other-notable-features&quot;&gt;&lt;/a&gt;Other Notable Features&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The
+&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues?q=milestone%3A%221.1.0+-+Dresden%22&quot;&gt;full
+list of changes/fixes&lt;/a&gt; is rather long, so below is a summary of what we thing
+are nifty and notable features in 1.1:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues/131&quot;&gt;#131&lt;/a&gt;:
+Provide a command-line property to change the version of JRuby at runtime
+(&lt;code&gt;./gradlew -PjrubyVersion=9.0.1.0&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues/211&quot;&gt;#211&lt;/a&gt;:
+Default to &lt;a href=&quot;http://jruby.org/2015/09/02/jruby-9-0-1-0.html&quot;&gt;JRuby 9.0.1.0&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues/200&quot;&gt;#200&lt;/a&gt;:
+Reduced &lt;code&gt;.jar&lt;/code&gt; file size by not packing &lt;code&gt;cache/*.gem&lt;/code&gt; inside the archive.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/pull/208&quot;&gt;#208&lt;/a&gt;:
+  Ensure &lt;code&gt;gradle.rb&lt;/code&gt; scripts use the same classpath, gems and jars as their
+j &lt;code&gt;JRubyExec&lt;/code&gt; counterparts&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;bug-fixes&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#bug-fixes&quot;&gt;&lt;/a&gt;Bug fixes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And of course some bug fixes, most of which were backported and released as
+part of &lt;a href=&quot;http://jruby-gradle.org/news/2015/09/10/jruby-gradle-1/&quot;&gt;JRuby/Gradle 1.0.4&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jruby-gradle/jruby-gradle-plugin/issues/195&quot;&gt;#195&lt;/a&gt;:
+Ensure released versions of the plugin are laid out in the Maven repository
+correctly (allows specifying a version range dependency on the plugin itself
+properly like in the above example)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+</entry>
 <entry>
 <id>http://jruby-gradle.org/news/2015/09/10/jruby-gradle-1/</id>
 <title>v1.0.4 and a few squashed bugs</title>
