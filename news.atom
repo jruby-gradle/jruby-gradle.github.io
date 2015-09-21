@@ -1,13 +1,13 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-09-18T13:21:38-07:00</updated>
+<updated>2015-09-21T09:31:36-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
 <entry>
 <id>http://jruby-gradle.org/news/2015/09/18/jruby-gradle-1-1/</id>
 <title>JRuby/Gradle 1.1 'Dresden' released</title>
-<updated>2015-09-18T13:21:38-07:00</updated>
+<updated>2015-09-21T09:31:36-07:00</updated>
 <published>2015-09-18T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/09/18/jruby-gradle-1-1/' rel='alternate' type='text/html'>
 <summary>
@@ -76,6 +76,8 @@ jruby {
 }
 
 repositories {
+    /* use jcenter() so we can get JRuby itself */
+    jcenter()
     /* use our new rubygems() function to add a rubygems repo */
     rubygems('https://rubygems.org')
 }
