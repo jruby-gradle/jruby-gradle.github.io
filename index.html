@@ -149,7 +149,13 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: &quot;com.github.jruby-gradle.jar&quot;
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">         */
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
+        classpath 'com.github.jruby-gradle:jruby-gradle-jar-plugin:%%VERSION%%'
+    }
+}
+
+apply plugin: &quot;com.github.jruby-gradle.jar&quot;
 
 repositories { jcenter() }
 
@@ -159,12 +165,7 @@ dependencies {
      * included in the resulting .jar file
      */
     jrubyJar &quot;rubygems:colorize:0.7.7+&quot;
-    jrubyJar 'org.slf4j:slf4j-simple:1.7.12'
-}
-
-jrubyJar {
-    /* We want to use this Ruby script as our start point when the jar executes
-     */</code></pre>
+    jrubyJar 'org.slf4j:slf4j-simple:1.7.12'</code></pre>
 </div>
 </div>
 <div class="listingblock">

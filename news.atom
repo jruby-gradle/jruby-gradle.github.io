@@ -1,13 +1,13 @@
 <feed xml:lang='en-US' xmlns='http://www.w3.org/2005/Atom'>
 <id>http://jruby-gradle.org/</id>
 <title>JRuby/Gradle News</title>
-<updated>2015-09-10T16:55:14-07:00</updated>
+<updated>2015-10-01T07:30:07-07:00</updated>
 <link href='http://jruby-gradle.org/news.atom' rel='self' type='application/atom+xml'>
 <link href='http://jruby-gradle.org/' rel='alternate' type='text/html'>
 <entry>
 <id>http://jruby-gradle.org/news/2015/09/10/jruby-gradle-1/</id>
 <title>v1.0.4 and a few squashed bugs</title>
-<updated>2015-09-10T16:55:14-07:00</updated>
+<updated>2015-10-01T07:30:07-07:00</updated>
 <published>2015-09-10T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/09/10/jruby-gradle-1/' rel='alternate' type='text/html'>
 <summary>
@@ -143,7 +143,7 @@ prepareJRubyJar doesn’t cache results and reinstalls gems every single run&lt;
 <entry>
 <id>http://jruby-gradle.org/news/2015/09/01/gradle-spotlight-continuous-build/</id>
 <title>Gradle Feature Spotlight: Continuous Build</title>
-<updated>2015-09-10T15:24:41-07:00</updated>
+<updated>2015-10-01T07:30:07-07:00</updated>
 <published>2015-09-01T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/09/01/gradle-spotlight-continuous-build/' rel='alternate' type='text/html'>
 <summary>
@@ -323,7 +323,7 @@ can easily used in JRuby/Gradle, I hope you find it useful!&lt;/p&gt;
 <entry>
 <id>http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/</id>
 <title>JRuby/Gradle at JRubyConf EU 2015</title>
-<updated>2015-09-10T15:24:41-07:00</updated>
+<updated>2015-10-01T07:30:07-07:00</updated>
 <published>2015-08-16T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/08/16/introduction-at-jrubyconfeu/' rel='alternate' type='text/html'>
 <summary>
@@ -387,7 +387,7 @@ with more to talk about!&lt;/p&gt;
 <entry>
 <id>http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/</id>
 <title>JRuby/Gradle 1.0 Announced</title>
-<updated>2015-09-10T15:24:41-07:00</updated>
+<updated>2015-10-01T07:30:07-07:00</updated>
 <published>2015-08-04T00:00:00+00:00</published>
 <link href='http://jruby-gradle.org/news/2015/08/04/jrubygradle-one-point-oh/' rel='alternate' type='text/html'>
 <summary>
