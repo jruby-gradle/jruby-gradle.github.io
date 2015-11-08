@@ -54,6 +54,24 @@ Download
 <h1>
 Jar plugin
 </h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#getting-started">Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#compatibility">Compatibility</a></li>
+<li><a href="#installing">Installing</a></li>
+</ul>
+</li>
+<li><a href="#tasks">Tasks</a>
+<ul class="sectlevel2">
+<li><a href="#jrubyjar">JRubyJar</a></li>
+</ul>
+</li>
+<li><a href="#runnable">Runnable Jars</a></li>
+<li><a href="#library">Library Jars</a></li>
+</ul>
+</div>
 <div id="preamble">
 <div class="sectionbody">
 <div class="imageblock">
@@ -87,7 +105,7 @@ Jar plugin
 
     dependencies {
         <span class="comment">/* check jruby-gradle.org for the latest release */</span>
-        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-jar-plugin:1.0.1</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-jar-plugin:[1.1.4,2.0)</span><span class="delimiter">&quot;</span></span>
     }
 }
 
@@ -114,17 +132,8 @@ version of Gradle.</p>
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
-    // Use the default GEM installation directory
-    defaultGems()
-
-    // Add this GEM installation directory to the JAR.
-    // Can be called more than once for additional directories
-    gemDir '/path/to/my/gemDir'
-
-    // Equivalent to calling defaultGems()
-    defaults 'gem'
-
-    // All methods and properties from `Jar`
+    /* All methods and properties from `Jar` */
+    from 'app'
 }</code></pre>
 </div>
 </div>
@@ -157,14 +166,8 @@ version of Gradle.</p>
     // Use the default bootstrap class (can be omitted)
     defaultMainClass()
 
-    // Includes the default gems to the jar (can be omitted)
-    defaultGems()
-
     // Make the JAR executable by supplying your own main class
     mainClass 'my.own.main'
-
-    // Equivalent to calling defaultMainClass() and defaultGems()
-    defaults 'gems', 'mainClass'
 }</code></pre>
 </div>
 </div>
@@ -183,12 +186,6 @@ configured gems and jar dependencies inside of the packaged <code>.jar</code> fi
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">jrubyJar {
     // tell the plugin to pack a runnable jar (no bootstrap script)
     initScript library()
-
-    // Includes the default gems to the jar (can be omitted)
-    defaultGems()
-
-    // Equivalent to calling defaultGems()
-    defaults 'gems'
 }</code></pre>
 </div>
 </div>
@@ -196,5 +193,10 @@ configured gems and jar dependencies inside of the packaged <code>.jar</code> fi
 </div>
 </div>
 <hr>
+<div id='improve'>
+<a href='https://github.com/jruby-gradle/jruby-gradle-plugin/edit/master/docs//jar.adoc'>
+improve this page
+</a>
+</div>
 </body>
 </html>

@@ -100,7 +100,7 @@ Ruby and Java developers alike.</p>
 execute a Ruby script, which has Ruby-based dependencies:</p>
 </div>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">build.gradle (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/run-simple-ruby-script/build.gradle">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: &quot;com.github.jruby-gradle.base&quot;
 
@@ -120,7 +120,7 @@ task printSomePrettyOutputPlease(type: JRubyExec) {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">print-script.rb</div>
+<div class="title">print-script.rb (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/run-simple-ruby-script/print-script">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">colorize</span><span class="delimiter">'</span></span>
 
@@ -147,7 +147,7 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 <div class="sect2">
 <h3 id="packaging-some-ruby"><a class="anchor" href="#packaging-some-ruby"></a>Packaging some Ruby</h3>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">build.gradle (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/self-executing-jar/build.gradle">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="gradle">         */
         classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
@@ -169,7 +169,7 @@ dependencies {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">entrypoint.rb</div>
+<div class="title">entrypoint.rb (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/self-executing-jar/entrypoint.rb">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">colorize</span><span class="delimiter">'</span></span>
 
@@ -191,9 +191,6 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <div class="paragraph">
-<p>.</p>
-</div>
-<div class="paragraph">
 <p>Executing <code>./gradlew jrubyJar</code> will build a <code>.jar</code> file inside of the
 <code>build/libs</code> directory which can then be invoked:</p>
 </div>
@@ -210,5 +207,10 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <hr>
+<div id='improve'>
+<a href='https://github.com/jruby-gradle/jruby-gradle-plugin/edit/master/docs//index.adoc'>
+improve this page
+</a>
+</div>
 </body>
 </html>

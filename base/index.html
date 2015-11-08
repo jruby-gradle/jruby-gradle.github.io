@@ -54,6 +54,32 @@ Download
 <h1>
 Base plugin
 </h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#getting-started">Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#compatibility">Compatibility</a></li>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#adding-gems">Adding gems</a></li>
+</ul>
+</li>
+<li><a href="#tasks">Tasks</a>
+<ul class="sectlevel2">
+<li><a href="#jrubyexec">JRubyExec</a></li>
+<li><a href="#running-a-ruby-path-command">Running a Ruby PATH command</a></li>
+</ul>
+</li>
+<li><a href="#jrubyprepare">JRubyPrepare</a></li>
+<li><a href="#advanced-usage">Advanced Usage</a>
+<ul class="sectlevel2">
+<li><a href="#using-the-built-in-gem-proxy">Using the built-in Gem proxy</a></li>
+<li><a href="#using-a-custom-gem-repository">Using a custom Gem repository</a></li>
+<li><a href="#using-the-jruby-gradle-without-gradle">Using the JRuby/Gradle without Gradle</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="preamble">
 <div class="sectionbody">
 <div class="imageblock">
@@ -87,7 +113,7 @@ Base plugin
 
     dependencies {
         <span class="comment">/* check jruby-gradle.org for the latest release */</span>
-        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:1.1.0</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:[1.1.4,2.0)</span><span class="delimiter">&quot;</span></span>
     }
 }
 
@@ -475,5 +501,10 @@ where <code>build.gradle</code> is located
 </div>
 </div>
 <hr>
+<div id='improve'>
+<a href='https://github.com/jruby-gradle/jruby-gradle-plugin/edit/master/docs//base.adoc'>
+improve this page
+</a>
+</div>
 </body>
 </html>
