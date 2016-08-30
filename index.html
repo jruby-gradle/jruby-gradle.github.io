@@ -100,9 +100,19 @@ Ruby and Java developers alike.</p>
 execute a Ruby script, which has Ruby-based dependencies:</p>
 </div>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">build.gradle (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/run-simple-ruby-script/build.gradle">full source</a>)</div>
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="gradle">apply plugin: &quot;com.github.jruby-gradle.base&quot;
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        /* Replace &quot;%%VERSION%%&quot; with the version of JRuby/Gradle you wish to
+         * use if you want to use this build.gradle outside of gradleTest
+         */
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
+    }
+}
+apply plugin: &quot;com.github.jruby-gradle.base&quot;
 
 import com.github.jrubygradle.JRubyExec
 
@@ -120,7 +130,7 @@ task printSomePrettyOutputPlease(type: JRubyExec) {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">print-script.rb</div>
+<div class="title">print-script.rb (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/run-simple-ruby-script/print-script">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">colorize</span><span class="delimiter">'</span></span>
 
@@ -147,9 +157,20 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 <div class="sect2">
 <h3 id="packaging-some-ruby"><a class="anchor" href="#packaging-some-ruby"></a>Packaging some Ruby</h3>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">build.gradle (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/self-executing-jar/build.gradle">full source</a>)</div>
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="gradle">         */
+<pre class="CodeRay highlight nowrap"><code data-lang="gradle">buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        /* here to make sure that our dependencies get loaded in properly under
+         * GradleTest, this is NOT needed by end-users
+         */
+        classpath 'com.github.jengelman.gradle.plugins:shadow:[1.2.2,2.0)'
+
+        /* Replace &quot;%%VERSION%%&quot; with the version of JRuby/Gradle you wish to
+         * use if you want to use this build.gradle outside of gradleTest
+         */
         classpath 'com.github.jruby-gradle:jruby-gradle-plugin:%%VERSION%%'
         classpath 'com.github.jruby-gradle:jruby-gradle-jar-plugin:%%VERSION%%'
     }
@@ -165,11 +186,18 @@ dependencies {
      * included in the resulting .jar file
      */
     jrubyJar &quot;rubygems:colorize:0.7.7+&quot;
-    jrubyJar 'org.slf4j:slf4j-simple:1.7.12'</code></pre>
+    jrubyJar 'org.slf4j:slf4j-simple:1.7.12'
+}
+
+jrubyJar {
+    /* We want to use this Ruby script as our start point when the jar executes
+     */
+    initScript &quot;${projectDir}/entrypoint.rb&quot;
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">entrypoint.rb</div>
+<div class="title">entrypoint.rb (<a href="https://github.com/jruby-gradle/jruby-gradle-plugin/blob/master/examples/self-executing-jar/entrypoint.rb">full source</a>)</div>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">colorize</span><span class="delimiter">'</span></span>
 
@@ -191,9 +219,6 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <div class="paragraph">
-<p>.</p>
-</div>
-<div class="paragraph">
 <p>Executing <code>./gradlew jrubyJar</code> will build a <code>.jar</code> file inside of the
 <code>build/libs</code> directory which can then be invoked:</p>
 </div>
@@ -210,5 +235,10 @@ puts <span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <hr>
+<div id='improve'>
+<a href='https://github.com/jruby-gradle/jruby-gradle-plugin/edit/master/docs//index.adoc'>
+improve this page
+</a>
+</div>
 </body>
 </html>

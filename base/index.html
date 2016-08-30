@@ -113,7 +113,7 @@ Base plugin
 
     dependencies {
         <span class="comment">/* check jruby-gradle.org for the latest release */</span>
-        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:1.1.0</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.github.jruby-gradle:jruby-gradle-plugin:[1.1.4,2.0)</span><span class="delimiter">&quot;</span></span>
     }
 }
 
@@ -421,6 +421,7 @@ relies on.</p>
 jruby.defaultRepositories false
 
 repositories {
+    jcenter()
     rubygems('https://rubygems.org')
 }
 
@@ -500,5 +501,10 @@ where <code>build.gradle</code> is located
 </div>
 </div>
 <hr>
+<div id='improve'>
+<a href='https://github.com/jruby-gradle/jruby-gradle-plugin/edit/master/docs//base.adoc'>
+improve this page
+</a>
+</div>
 </body>
 </html>
